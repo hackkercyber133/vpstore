@@ -98,9 +98,24 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 .acc{text-align:center}.acc .av{width:64px;height:64px;border-radius:50%;background:var(--soft);color:var(--ac);display:grid;place-items:center;margin:0 auto 10px}.acc .av svg{width:32px;height:32px}.acc p{margin:2px 0;color:var(--mute)}
 .foot{text-align:center;padding:26px 16px 34px}.foot a{display:inline-block;margin:4px;padding:8px 18px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);color:var(--ac);font-weight:700;text-decoration:none;transition:transform .5s var(--spring),border-color .3s}.foot a:hover{transform:translateY(-3px);border-color:var(--ac)}.foot a:active{transform:scale(.92)}
 @media(max-width:640px){.det{grid-template-columns:1fr}.banner{padding:20px}.banner h1{font-size:21px}}
+
+.lg{position:relative;display:inline-flex;align-items:center;height:44px;font-weight:800;font-size:23px;letter-spacing:-.4px;white-space:nowrap;user-select:none;margin-right:auto}
+.lt{display:inline-block;animation:morph 9s infinite;animation-delay:calc(var(--i)*-50ms)}
+.lt i{display:inline-block;font-style:normal;animation:wave 9s infinite;animation-delay:calc(var(--i)*-50ms)}
+.lt.a{color:var(--ac)}.lt.b{color:var(--ink)}.lt.sp{width:.32em}
+@keyframes morph{0%,20%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.55,0,.35,1)}32%,64%{transform:translateX(var(--dx,0px)) rotate(720deg) scale(.12);opacity:0;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}76%,100%{transform:none;opacity:1}}
+@keyframes wave{0%{transform:none}3%{transform:translateY(-6px) rotate(-7deg)}6%{transform:none}9%{transform:translateY(-6px) rotate(7deg)}12%,78%{transform:none}82%{transform:translateY(-7px) scale(1.14)}86%{transform:none}90%{transform:translateY(-7px) scale(1.14)}94%,100%{transform:none}}
+.fc{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;opacity:0;transform:scale(0);animation:face 9s infinite;pointer-events:none}
+.fc svg{width:100%;height:100%;overflow:visible;display:block}
+@keyframes face{0%,33%{transform:scale(0) rotate(-540deg);opacity:0;animation-timing-function:cubic-bezier(.34,1.4,.64,1)}40%{transform:scale(1.12) rotate(0);opacity:1}43%{transform:scale(1) rotate(0)}46%,52%{transform:scale(1) rotate(-10deg)}55%{transform:scale(1) rotate(0);opacity:1;animation-timing-function:cubic-bezier(.55,0,.35,1)}61%,100%{transform:scale(0) rotate(540deg);opacity:0}}
+.wk{transform-box:fill-box;transform-origin:center;animation:wink 9s infinite}
+@keyframes wink{0%,43%{transform:scaleY(1)}45%{transform:scaleY(.1)}48%{transform:scaleY(1)}50%{transform:scaleY(.1)}53%,100%{transform:scaleY(1)}}
+.ht{transform-box:fill-box;transform-origin:center;opacity:0;animation:heart 9s infinite}
+@keyframes heart{0%,44%{opacity:0;transform:translate(0,2px) scale(.3)}47%{opacity:1;transform:translate(2px,-3px) scale(1)}54%,100%{opacity:0;transform:translate(5px,-10px) scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.lt,.lt i,.fc,.wk,.ht{animation:none!important}.fc{display:none}}
 </style></head>
 <body>
-<header class="top"><div class="bar"><div class="logo">VP STORE</div>
+<header class="top"><div class="bar"><div class="lg" id="logo" role="img" aria-label="VP STORE"><span class="lt a" style="--i:0" aria-hidden="true"><i>V</i></span><span class="lt a" style="--i:1" aria-hidden="true"><i>P</i></span><span class="lt sp" style="--i:2" aria-hidden="true"><i>&nbsp;</i></span><span class="lt b" style="--i:3" aria-hidden="true"><i>S</i></span><span class="lt b" style="--i:4" aria-hidden="true"><i>T</i></span><span class="lt b" style="--i:5" aria-hidden="true"><i>O</i></span><span class="lt b" style="--i:6" aria-hidden="true"><i>R</i></span><span class="lt b" style="--i:7" aria-hidden="true"><i>E</i></span><div class="fc" aria-hidden="true"><svg viewBox="0 0 44 44"><defs><radialGradient id="fg" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#ffb400"/></radialGradient></defs><circle cx="22" cy="22" r="20" fill="url(#fg)" stroke="#e29a00" stroke-width="1.5"/><ellipse cx="14.5" cy="18" rx="2.6" ry="3.6" fill="#3b2a12"/><ellipse class="wk" cx="29.5" cy="18" rx="2.6" ry="3.6" fill="#3b2a12"/><circle cx="9" cy="27" r="3.2" fill="#ff7a8a" opacity=".55"/><circle cx="35" cy="27" r="3.2" fill="#ff7a8a" opacity=".55"/><path d="M12 27 Q22 37.5 32 27" fill="none" stroke="#3b2a12" stroke-width="2.6" stroke-linecap="round"/><path class="ht" d="M38 6.5c-1.2-2-4-1-3.4 1.2.4 1.300 2.400 2.400 3.400 3.300 1-.9 3-2 3.400-3.300.6-2.200-2.200-3.200-3.400-1.200z" fill="#ff3d6e"/></svg></div></div>
 <div class="ibs"><button class="ib rel" data-act="cart" aria-label="Keranjang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 7H6"/></svg><span class="cartN z" id="cartN">0</span></button>
 <button class="ib" data-act="acc" aria-label="Pengaturan akun"><svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div>
 <div class="search"><input id="q" type="text" placeholder="Cari fan cooler HP" aria-label="Cari produk"></div></div></header>
@@ -111,7 +126,6 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 <p class="note">Bisa bayar DP atau langsung lunas sesuai harga yang tertera, atau konfirmasi dengan admin. Nominal DP dan nomor rekening (semua bank dan e-wallet) tampil saat checkout.</p>
 <a class="btn light" id="bnAdmin" target="_blank" rel="noopener" style="margin-top:12px">Chat Admin 1</a></section>
 <div class="chips" id="chips"></div><div class="grid" id="grid"><div class="empty">Memuat produk...</div></div></main>
-<div class="foot" id="foot"></div>
 <div class="modal" id="mDet"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="det" id="detBody"></div></div></div>
 <div class="modal" id="mCart"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="pad" id="cartBody"></div></div></div>
 <div class="modal" id="mAsk"><div class="sheet" style="max-width:420px"><button class="x" data-close aria-label="Tutup">×</button><div class="pad" id="askBody"></div></div></div>
@@ -127,10 +141,12 @@ import {getFirestore,collection,onSnapshot,doc,getDoc,addDoc,serverTimestamp,que
 const $=id=>document.getElementById(id);
 const GSVG=`<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.5-2.7c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2.1v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.7 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.7l3.2-3.2A11 11 0 0 0 2.1 7.1l3.6 2.8C6.6 7.400 9.100 5.400 12 5.400z"/></svg>`;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nw=s=>{let d=String(s||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d};
+const tu=s=>String(s||'').trim().replace(/^https?:\/\/t\.me\//i,'').replace(/^@/,'').replace(/[^\w]/g,'');
 const rp=n=>'Rp'+Math.round(Number(n)||0).toLocaleString('id-ID');
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2800)}
 const db=getFirestore(initializeApp(firebaseConfig)),auth=getAuth();
-let P=[],U=null,WA='',REK=[],DPDEF=50000,cat='Semua',q='',CUR=null,GI=0,LB={a:[],i:0},CO=[],COFROM='cart',BK='',fresh=true;
+let TGL=TG.map(t=>({n:t[0],u:t[1]})),WAL=[],P=[],U=null,REK=[],DPDEF=50000,cat='Semua',q='',CUR=null,GI=0,LB={a:[],i:0},CO=[],COFROM='cart',BK='',fresh=true;
 const CATS=['Semua','Cooler DIY','Custom Cooler'];
 let C=[];try{C=JSON.parse(localStorage.getItem('vp_cart')||'[]')}catch(e){}
 const saveC=()=>{try{localStorage.setItem('vp_cart',JSON.stringify(C))}catch(e){}const n=C.reduce((a,c)=>a+c.qty,0);$('cartN').textContent=n;$('cartN').classList.toggle('z',!n)};
@@ -154,8 +170,9 @@ function drawLb(){$('lbImg').src=LB.a[LB.i];$('lbCnt').textContent=LB.a.length>1
 function addCart(id){const p=P.find(x=>x.id===id);if(!p||p.stok<=0)return toast('Stok habis');const c=C.find(x=>x.id===id);if(c){if(c.qty>=p.stok)return toast('Maksimal sesuai stok');c.qty++}else C.push({id,qty:1});saveC();toast('Masuk keranjang')}
 function drawCart(){const it=items(),tot=it.reduce((a,x)=>a+x.p.harga*x.qty,0);
  $('cartBody').innerHTML='<h2>Keranjang</h2>'+(it.length?it.map(x=>`<div class="ci"><img src="${esc(fotos(x.p)[0])}" alt=""><div class="i"><b>${esc(x.p.nama)}</b><div class="pr" style="margin:0">${rp(x.p.harga)}</div></div><div class="qty"><button data-act="qm" data-id="${x.p.id}" aria-label="Kurangi">−</button><b>${x.qty}</b><button data-act="qp" data-id="${x.p.id}" aria-label="Tambah">+</button></div></div>`).join('')+`<div class="tot"><span>Total</span><span>${rp(tot)}</span></div><div class="acts"><button class="btn ghost" data-act="ask">Hubungi Admin (tanya dulu)</button><button class="btn" data-act="cobuy">Pesan Sekarang</button></div>`:'<div class="empty">Keranjang masih kosong.</div>')}
+function setContacts(){$('bnAdmin').href='https://t.me/'+TGL[0].u}
 function openAsk(msg){const m=encodeURIComponent(msg||'Halo admin, saya mau tanya produk.');
- $('askBody').innerHTML='<h2>Hubungi Admin</h2><div class="acts">'+TG.map(t=>`<a class="btn tg" target="_blank" rel="noopener" href="https://t.me/${t[1]}">Telegram ${esc(t[0])}</a>`).join('')+(WA?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${esc(WA)}?text=${m}">WhatsApp</a>`:'')+'</div>';open('mAsk')}
+ $('askBody').innerHTML='<h2>Hubungi Admin</h2><div class="acts">'+TGL.map(t=>`<a class="btn tg" target="_blank" rel="noopener" href="https://t.me/${esc(t.u)}">Telegram ${esc(t.n)}</a>`).join('')+WAL.map(w=>`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${esc(w.no)}?text=${m}">WhatsApp ${esc(w.n)}</a>`).join('')+'</div>';open('mAsk')}
 function drawAcc(){$('accBody').innerHTML=`<div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>`+(U?`<h2 style="padding:0">${esc(U.displayName||'Akun Google')}</h2><p>${esc(U.email||'')}</p><div class="acts"><button class="btn danger" data-act="logout">Keluar akun</button></div>`:`<h2 style="padding:0">Masuk akun</h2><p>Masuk dengan Google agar bisa checkout pesanan.</p><div class="acts"><button class="btn ghost" data-act="login" style="display:flex;gap:10px;align-items:center;justify-content:center">${GSVG} Masuk dengan Google</button></div>`)}
 function needLogin(){if(U)return true;toast('Masuk dengan Google dulu untuk memesan');drawAcc();open('mAcc');return false}
 function openCo(){const tot=CO.reduce((a,x)=>a+x.p.harga*x.qty,0),dp=CO.reduce((a,x)=>a+dpOf(x.p)*x.qty,0),hasDp=dp<tot;BK='';
@@ -179,7 +196,7 @@ async function send(){
  const bt=document.querySelector('[data-act=send]');bt.disabled=true;
  try{await addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama,alamat:al,tanggal:$('coTgl').value,request:$('coReq').value.trim(),items:CO.map(x=>({id:x.p.id,nama:x.p.nama,harga:x.p.harga,qty:x.qty})),total:tot,bayar,jumlahBayar:jml,namaPengirim:peng,bukti:BK,status:'menunggu_verifikasi',createdAt:serverTimestamp()});
   if(COFROM==='cart'){C=[];saveC()}
-  b.innerHTML=`<div class="ok"><b>Pesanan terkirim</b><p>Admin akan memeriksa bukti ${bayar==='Lunas'?'pembayaran':'DP'} kamu. Kalau ada yang ingin ditanyakan, chat admin.</p><a class="btn tg" target="_blank" rel="noopener" href="https://t.me/${TG[0][1]}">Chat ${esc(TG[0][0])}</a></div>`}
+  b.innerHTML=`<div class="ok"><b>Pesanan terkirim</b><p>Admin akan memeriksa bukti ${bayar==='Lunas'?'pembayaran':'DP'} kamu. Kalau ada yang ingin ditanyakan, chat admin.</p><a class="btn tg" target="_blank" rel="noopener" href="https://t.me/${esc(TGL[0].u)}">Chat ${esc(TGL[0].n)}</a></div>`}
  catch(e){bt.disabled=false;toast('Gagal mengirim, coba lagi')}}
 const login=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());shut('mAcc')}catch(e){toast('Login dibatalkan')}};
 document.addEventListener('click',e=>{
@@ -212,11 +229,12 @@ document.addEventListener('change',e=>{
 document.addEventListener('keydown',e=>{if(!$('mLb').classList.contains('open'))return;if(e.key==='ArrowRight')$('mLb').querySelector('.next').click();if(e.key==='ArrowLeft')$('mLb').querySelector('.prev').click();if(e.key==='Escape')shut('mLb')});
 let sx=0;$('mLb').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('mLb').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50&&LB.a.length>1)$('mLb').querySelector(d<0?'.next':'.prev').click()});
 $('q').addEventListener('input',e=>{q=e.target.value;render()});
-$('bnAdmin').href='https://t.me/'+TG[0][1];
-$('foot').innerHTML='Hubungi admin: '+TG.map(t=>`<a href="https://t.me/${t[1]}" target="_blank" rel="noopener">@${esc(t[1])}</a>`).join('');
+const setLogo=()=>{const L=$('logo');L.querySelectorAll('.lt').forEach(e=>e.style.setProperty('--dx',(L.offsetWidth/2-(e.offsetLeft+e.offsetWidth/2))+'px'))};
+setLogo();addEventListener('load',setLogo);document.fonts&&document.fonts.ready.then(setLogo);
+setContacts();
 onAuthStateChanged(auth,u=>{U=u;if($('mAcc').classList.contains('open'))drawAcc()});
 onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render();if(CUR&&$('mDet').classList.contains('open')){CUR=P.find(x=>x.id===CUR.id)||CUR;drawDet()}},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
-getDoc(doc(db,'settings','store')).then(s=>{if(s.exists()){const d=s.data();WA=d.wa||'';REK=d.rek||[];if(d.dpMin)DPDEF=d.dpMin}}).catch(()=>{});
+getDoc(doc(db,'settings','store')).then(s=>{if(s.exists()){const d=s.data();REK=d.rek||[];if(d.dpMin)DPDEF=d.dpMin;const tg=[d.tg1,d.tg2].map((x,i)=>tu(x)?{n:'Admin '+(i+1),u:tu(x)}:null).filter(Boolean),wa=[d.wa1!==undefined?d.wa1:d.wa,d.wa2].map((x,i)=>nw(x).length>=10?{n:'Admin '+(i+1),no:nw(x)}:null).filter(Boolean);if(tg.length)TGL=tg;WAL=wa;setContacts()}}).catch(()=>{});
 document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.chip,.card,.ib,.tab');if(!t||t.disabled)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.4,d=document.createElement('span');d.className='rip';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;t.appendChild(d);setTimeout(()=>d.remove(),850)});
 
 saveC();render();

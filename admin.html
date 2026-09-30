@@ -98,7 +98,9 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 
 <section class="view card2" id="v2"><h2>Pengaturan pembayaran</h2>
 <div class="fld"><label for="fDef">DP bawaan (Rp)</label><input id="fDef" type="text" inputmode="numeric" placeholder="50000 atau 50rb"><div class="hint" id="pDef">Dipakai untuk produk yang DP-nya dikosongkan. Pembeli tidak bisa mengubah DP.</div></div>
-<div class="fld"><label for="fWa">Nomor WhatsApp toko</label><input id="fWa" type="text" placeholder="6281234567890" inputmode="numeric"></div>
+<div class="lbl">Kontak admin (wajib minimal 1 Telegram, WhatsApp boleh kosong, maksimal 2 Telegram dan 2 WhatsApp)</div>
+<div class="two"><div class="fld"><label for="fTg1">Telegram Admin 1 (wajib)</label><input id="fTg1" type="text" placeholder="username tanpa @"></div><div class="fld"><label for="fTg2">Telegram Admin 2 (opsional)</label><input id="fTg2" type="text" placeholder="username tanpa @"></div>
+<div class="fld"><label for="fWa1">WhatsApp Admin 1 (opsional)</label><input id="fWa1" type="text" inputmode="numeric" placeholder="0895xxxxxxxx"><div class="hint" id="hWa1"></div></div><div class="fld"><label for="fWa2">WhatsApp Admin 2 (opsional)</label><input id="fWa2" type="text" inputmode="numeric" placeholder="0812xxxxxxxx"><div class="hint" id="hWa2"></div></div></div>
 <div class="lbl">Rekening pembayaran (semua bank dan e-wallet)</div><div id="rekList"></div>
 <div class="info" style="margin-top:14px"><div class="fld"><label for="rBank">Bank / e-wallet</label><input id="rBank" type="text" placeholder="BCA, DANA, dll"></div><div class="fld"><label for="rNo">Nomor rekening / HP</label><input id="rNo" type="text" inputmode="numeric"></div><div class="fld"><label for="rAn">Atas nama</label><input id="rAn" type="text"></div><button class="btn ghost full" id="rAdd">+ Tambah rekening</button></div>
 <button class="btn full" id="saveSet" style="margin-top:6px">Simpan pengaturan</button></section>
@@ -112,6 +114,9 @@ import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'htt
 import {getFirestore,collection,onSnapshot,doc,getDoc,setDoc,addDoc,updateDoc,deleteDoc,serverTimestamp,query,orderBy,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nw=s=>{let d=String(s||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d};
+const tu=s=>String(s||'').trim().replace(/^https?:\/\/t\.me\//i,'').replace(/^@/,'').replace(/[^\w]/g,'');
+const wh=(i,o)=>{const v=nw($(i).value);$(o).textContent=v?'Dipakai untuk link: '+v+(v.length<10?' (terlalu pendek)':''):''};
 const rp=n=>'Rp'+Math.round(Number(n)||0).toLocaleString('id-ID');
 const pm=s=>{s=String(s).toLowerCase().trim();const k=/(rb|ribu|k)\s*$/.test(s),n=parseFloat(s.replace(/(rb|ribu|k)\s*$/,'').replace(/\./g,'').replace(',','.'))||0;return Math.round(k?n*1000:n)};
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)}
@@ -139,7 +144,7 @@ async function enter(u){
  const a=await getDoc(doc(db,'admins',u.uid)).catch(()=>null);
  if(!a||!a.exists()){toast('Akun ini bukan admin toko');await signOut(auth);return}
  $('lg').classList.add('hide');$('dash').classList.remove('hide');$('out').classList.remove('hide');
- getDoc(doc(db,'settings','store')).then(s=>{const d=s.exists()?s.data():{};$('fWa').value=d.wa||'';$('fDef').value=d.dpMin||50000;REK=d.rek||[];renderRek();prev('fDef','pDef');if(!d.dpMin)$('pDef').textContent='= Rp50.000. Dipakai untuk produk yang DP-nya dikosongkan. Pembeli tidak bisa mengubah DP.'});
+ getDoc(doc(db,'settings','store')).then(s=>{const d=s.exists()?s.data():{};$('fTg1').value=d.tg1||'';$('fTg2').value=d.tg2||'';$('fWa1').value=d.wa1!==undefined?d.wa1:(d.wa||'');$('fWa2').value=d.wa2||'';wh('fWa1','hWa1');wh('fWa2','hWa2');$('fDef').value=d.dpMin||50000;REK=d.rek||[];renderRek();prev('fDef','pDef');if(!d.dpMin)$('pDef').textContent='= Rp50.000. Dipakai untuk produk yang DP-nya dikosongkan. Pembeli tidak bisa mengubah DP.'});
  subs.push(onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));renderList()}));
  subs.push(onSnapshot(query(collection(db,'orders'),orderBy('createdAt','desc'),limit(150)),s=>{O=s.docs.map(d=>({_id:d.id,...d.data()}));renderOrders()}));
 }
@@ -161,15 +166,17 @@ document.addEventListener('click',async e=>{
  else if(t.dataset.edit){const p=P.find(x=>x.id===t.dataset.edit);edit=p.id;fotos=[...fo(p)];thumbs();$('fNama').value=p.nama;$('fHarga').value=p.harga;$('fCoret').value=p.coret||'';$('fDp').value=p.dp||'';$('fStok').value=p.stok;$('fKat').value=p.kat;$('fDesk').value=p.desk||'';['Harga','Coret','Dp'].forEach(k=>prev('f'+k,'p'+k));$('formTitle').textContent='Ubah produk';scrollTo({top:0})}
  else if(t.dataset.del){if(confirm('Hapus produk ini?')){await deleteDoc(doc(db,'products',t.dataset.del));toast('Produk dihapus')}}
  else if(t.id==='rAdd'){const b=$('rBank').value.trim(),n=$('rNo').value.trim(),a=$('rAn').value.trim();if(!b||!n||!a){toast('Lengkapi bank, nomor, dan atas nama');return}REK.push({bank:b,no:n,an:a});['rBank','rNo','rAn'].forEach(i=>$(i).value='');renderRek()}
- else if(t.id==='saveSet'){const w=$('fWa').value.replace(/\D/g,'');if(w&&w.length<9){toast('Nomor WhatsApp belum benar');return}
-  try{await setDoc(doc(db,'settings','store'),{wa:w,dpMin:pm($('fDef').value)||50000,rek:REK},{merge:true});toast('Pengaturan disimpan')}catch(x){toast('Gagal menyimpan')}}
+ else if(t.id==='saveSet'){const tg1=tu($('fTg1').value),tg2=tu($('fTg2').value),wa1=nw($('fWa1').value),wa2=nw($('fWa2').value);
+  if(!tg1){toast('Telegram Admin 1 wajib diisi');return}
+  if((wa1&&wa1.length<10)||(wa2&&wa2.length<10)){toast('Nomor WhatsApp belum benar');return}
+  try{await setDoc(doc(db,'settings','store'),{tg1,tg2,wa1,wa2,wa:wa1,dpMin:pm($('fDef').value)||50000,rek:REK},{merge:true});$('fWa1').value=wa1;$('fWa2').value=wa2;wh('fWa1','hWa1');wh('fWa2','hWa2');toast('Pengaturan disimpan')}catch(x){toast('Gagal menyimpan')}}
  else if(t.id==='save'){const n=$('fNama').value.trim(),h=pm($('fHarga').value);
   if(!n){toast('Isi nama produk dulu');return}if(!h){toast('Isi harga produk dulu');return}
   fotos=fotos.filter(Boolean);if(!fotos.length){toast('Pilih minimal 1 foto produk (tunggu foto selesai diproses)');return}
   const d={nama:n,harga:h,coret:pm($('fCoret').value)||0,dp:pm($('fDp').value)||0,stok:+$('fStok').value||0,kat:$('fKat').value,desk:$('fDesk').value.trim(),foto:fotos[0],fotos};
   try{if(edit)await updateDoc(doc(db,'products',edit),d);else await addDoc(collection(db,'products'),{...d,terjual:0,createdAt:serverTimestamp()});toast('Produk disimpan');resetForm()}catch(x){toast('Gagal menyimpan (kurangi jumlah foto?)')}}
 });
-document.addEventListener('input',e=>{const m={fHarga:'pHarga',fCoret:'pCoret',fDp:'pDp'}[e.target.id];if(m)prev(e.target.id,m)});
+document.addEventListener('input',e=>{if(e.target.id==='fWa1')wh('fWa1','hWa1');if(e.target.id==='fWa2')wh('fWa2','hWa2');const m={fHarga:'pHarga',fCoret:'pCoret',fDp:'pDp'}[e.target.id];if(m)prev(e.target.id,m)});
 $('fDate').addEventListener('input',renderOrders);
 $('fFoto').addEventListener('change',e=>{[...e.target.files].forEach(f=>{if(fotos.length>=8){toast('Maksimal 8 foto');return}fotos.push(null);const i=fotos.length-1;shrink(f,u=>{fotos[i]=u;thumbs()})});e.target.value=''});
 document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.chip,.card,.ib,.tab');if(!t||t.disabled)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.4,d=document.createElement('span');d.className='rip';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;t.appendChild(d);setTimeout(()=>d.remove(),850)});
