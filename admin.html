@@ -71,6 +71,7 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 .row{display:flex;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}.row img{width:52px;height:52px;border-radius:16px;object-fit:cover}.row .i{flex:1;min-width:140px}.row .i b{display:block}
 .rek{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1.5px solid var(--line);border-radius:22px;padding:10px 14px;margin-bottom:8px}.rek span{color:var(--mute);font-size:12px;display:block}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:90;padding:12px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}.ov.open{opacity:1;visibility:visible}.ov img{max-width:100%;max-height:92vh;object-fit:contain;border-radius:20px}
+.nav{grid-template-columns:repeat(4,minmax(0,1fr))}.ind{width:calc((100% - 10px)/4)}.tab{font-size:12px;line-height:1.2;padding:9px 2px;min-height:46px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center}.tab b{margin:2px 0 0 4px;padding:0 6px}
 </style></head>
 <body>
 <header class="top"><div class="bar"><div class="logo">VP STORE · Dashboard</div><div style="flex:1"></div><button class="btn ghost sm hide" id="out">Keluar</button></div></header>
@@ -78,13 +79,16 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 <div class="fld"><label for="id">ID</label><input id="id" type="text" autocomplete="username"></div><div class="fld"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password"></div>
 <button class="btn full" id="go">Masuk</button></div>
 <main class="wrap hide" id="dash">
-<nav class="nav" id="nav"><i class="ind" id="ind"></i><button class="tab on" data-v="0">Pesanan<b id="oN" class="hide"></b></button><button class="tab" data-v="1">Produk</button><button class="tab" data-v="2">Pembayaran</button></nav>
+<nav class="nav" id="nav"><i class="ind" id="ind"></i><button class="tab on" data-v="0">Pesanan DIY<b id="oN0" class="hide"></b></button><button class="tab" data-v="1">Pesanan Custom<b id="oN1" class="hide"></b></button><button class="tab" data-v="2">Produk</button><button class="tab" data-v="3">Pembayaran</button></nav>
 
-<section class="view on card2" id="v0"><h2>Pesanan</h2>
-<div class="fld"><label for="fDate">Lihat tanggal</label><input id="fDate" type="date"></div>
-<div class="chips" id="tabs"></div><div id="orders"></div></section>
+<section class="view on card2" id="v0"><h2>Pesanan DIY</h2>
+<div class="fld"><label for="fDate0">Lihat tanggal</label><input id="fDate0" type="date"></div>
+<div class="chips" id="tabs0"></div><div id="orders0"></div></section>
+<section class="view card2" id="v1"><h2>Pesanan Custom</h2>
+<div class="fld"><label for="fDate1">Lihat tanggal</label><input id="fDate1" type="date"></div>
+<div class="chips" id="tabs1"></div><div id="orders1"></div></section>
 
-<section class="view" id="v1"><div class="card2"><h2 id="formTitle">Tambah produk</h2>
+<section class="view" id="v2"><div class="card2"><h2 id="formTitle">Tambah produk</h2>
 <div class="fld"><label for="fNama">Nama produk</label><input id="fNama" type="text"></div>
 <div class="two"><div class="fld"><label for="fHarga">Harga (Rp)</label><input id="fHarga" type="text" inputmode="numeric" placeholder="150000 atau 150rb"><div class="hint" id="pHarga"></div></div>
 <div class="fld"><label for="fCoret">Harga coret (opsional)</label><input id="fCoret" type="text" inputmode="numeric" placeholder="kosongkan jika tidak ada"><div class="hint" id="pCoret"></div></div></div>
@@ -93,10 +97,11 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 <div class="fld"><label for="fKat">Kategori</label><select id="fKat"><option>Cooler DIY</option><option>Custom Cooler</option></select></div>
 <div class="fld"><label for="fDesk">Deskripsi</label><textarea id="fDesk"></textarea></div>
 <div class="fld"><label for="fFoto">Foto produk (maks 8, foto pertama jadi sampul, ketuk foto untuk jadikan sampul)</label><input id="fFoto" type="file" accept="image/*" multiple><div class="thumbs" id="thumbs"></div></div>
+<div class="fld"><label for="fVid">Video produk (opsional, maks 3, satu link per baris)</label><textarea id="fVid" placeholder="https://youtu.be/xxxx&#10;videos/cooler.mp4"></textarea><div class="hint" id="pVid"></div></div>
 <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="save">Simpan produk</button><button class="btn ghost" id="reset">Batal edit</button></div></div>
 <div class="card2" style="margin-top:14px"><h2>Daftar produk</h2><div id="list"></div></div></section>
 
-<section class="view card2" id="v2"><h2>Pengaturan pembayaran</h2>
+<section class="view card2" id="v3"><h2>Pengaturan pembayaran</h2>
 <div class="fld"><label for="fDef">DP bawaan (Rp)</label><input id="fDef" type="text" inputmode="numeric" placeholder="50000 atau 50rb"><div class="hint" id="pDef">Dipakai untuk produk yang DP-nya dikosongkan. Pembeli tidak bisa mengubah DP.</div></div>
 <div class="lbl">Kontak admin (wajib minimal 1 Telegram, WhatsApp boleh kosong, maksimal 2 Telegram dan 2 WhatsApp)</div>
 <div class="two"><div class="fld"><label for="fTg1">Telegram Admin 1 (wajib)</label><input id="fTg1" type="text" placeholder="username tanpa @"></div><div class="fld"><label for="fTg2">Telegram Admin 2 (opsional)</label><input id="fTg2" type="text" placeholder="username tanpa @"></div>
@@ -117,11 +122,16 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const nw=s=>{let d=String(s||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d};
 const tu=s=>String(s||'').trim().replace(/^https?:\/\/t\.me\//i,'').replace(/^@/,'').replace(/[^\w]/g,'');
 const wh=(i,o)=>{const v=nw($(i).value);$(o).textContent=v?'Dipakai untuk link: '+v+(v.length<10?' (terlalu pendek)':''):''};
+const yt=u=>{const m=String(u).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/);return m&&m[1]};
+const pv=u=>{u=String(u).trim();if(!u)return null;if(yt(u))return 1;return /\.(mp4|webm|mov|ogg|m4v)(\?.*)?$/i.test(u)?1:null};
+const vlines=()=>$('fVid').value.split('\n').map(x=>x.trim()).filter(Boolean);
+const VH='Bisa link YouTube, atau file mp4 yang diupload ke GitHub (contoh: videos/cooler.mp4).';
+const vhint=()=>{const l=vlines(),ok=l.filter(pv).length;$('pVid').textContent=l.length?ok+' video terbaca'+(l.length>ok?', '+(l.length-ok)+' link tidak dikenali':'')+(l.length>3?' (maks 3)':''):VH};
 const rp=n=>'Rp'+Math.round(Number(n)||0).toLocaleString('id-ID');
 const pm=s=>{s=String(s).toLowerCase().trim();const k=/(rb|ribu|k)\s*$/.test(s),n=parseFloat(s.replace(/(rb|ribu|k)\s*$/,'').replace(/\./g,'').replace(',','.'))||0;return Math.round(k?n*1000:n)};
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)}
 const db=getFirestore(initializeApp(firebaseConfig)),auth=getAuth();
-let P=[],O=[],edit=null,fotos=[],subs=[],REK=[],tab='menunggu_verifikasi';
+let P=[],O=[],edit=null,fotos=[],subs=[],REK=[],tab=['menunggu_verifikasi','menunggu_verifikasi'];
 const fo=p=>p.fotos&&p.fotos.length?p.fotos:[p.foto];
 const shrink=(f,cb)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,640/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.7))};im.onerror=()=>toast('File bukan gambar');im.src=r.result};r.readAsDataURL(f)};
 const prev=(i,o)=>{const v=pm($(i).value);$(o).textContent=v?'= '+rp(v):''};
@@ -129,23 +139,27 @@ const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+Stri
 const dlong=d=>d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 function go(i){$('ind').style.transform=`translateX(${i*100}%)`;document.querySelectorAll('.tab').forEach((b,k)=>b.classList.toggle('on',k===i));document.querySelectorAll('.view').forEach((v,k)=>v.classList.toggle('on',k===i));scrollTo({top:0})}
 function thumbs(){$('thumbs').innerHTML=fotos.map((s,i)=>!s?'':`<div class="th${i?'':' first'}"><img src="${s}" alt="" data-cover="${i}">${i?'':'<em>Sampul</em>'}<button data-rmf="${i}" aria-label="Hapus foto">×</button></div>`).join('')}
-function resetForm(){edit=null;fotos=[];['fNama','fHarga','fCoret','fDp','fStok','fDesk'].forEach(i=>$(i).value='');$('fFoto').value='';['pHarga','pCoret','pDp'].forEach(i=>$(i).textContent='');thumbs();$('formTitle').textContent='Tambah produk'}
-function renderList(){$('list').innerHTML=P.length?P.map(p=>`<div class="row"><img src="${esc(fo(p)[0])}" alt=""><div class="i"><b>${esc(p.nama)}</b><span style="color:var(--mute)">${rp(p.harga)} · stok ${p.stok} · ${fo(p).length} foto${p.dp?' · DP '+rp(p.dp):''}</span></div><button class="btn ghost sm" data-edit="${p.id}">Ubah</button><button class="btn danger sm" data-del="${p.id}">Hapus</button></div>`).join(''):'<div class="empty">Belum ada produk.</div>'}
-const TABS=[['menunggu_verifikasi','Perlu diverifikasi'],['diterima','Diterima'],['ditolak','Ditolak']];
-function renderOrders(){const L=O.filter(o=>o.status),n=L.filter(o=>o.status==='menunggu_verifikasi').length;$('oN').textContent=n;$('oN').classList.toggle('hide',!n);
- $('tabs').innerHTML=TABS.map(t=>`<button class="chip${tab===t[0]?' on':''}" data-tab="${t[0]}">${t[1]} (${L.filter(o=>o.status===t[0]).length})</button>`).join('');
- const df=$('fDate').value,G=new Map();
- L.filter(o=>o.status===tab).forEach(o=>{const d=o.createdAt?o.createdAt.toDate():new Date();if(df&&ymd(d)!==df)return;const k=ymd(d);if(!G.has(k))G.set(k,{d,l:[]});G.get(k).l.push(o)});
- $('orders').innerHTML=G.size?[...G.values()].map(g=>`<div class="dh"><span>${esc(dlong(g.d))}</span><span class="tag">${g.l.length} pesanan</span></div>`+g.l.map(o=>{const t=o.createdAt?o.createdAt.toDate().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}):'';return `<div class="oc"><div class="h"><span>${esc(o.nama)}</span><span class="tag">${esc(o.bayar)} ${rp(o.jumlahBayar)}</span></div>
+function resetForm(){edit=null;fotos=[];['fNama','fHarga','fCoret','fDp','fStok','fDesk','fVid'].forEach(i=>$(i).value='');vhint();$('fFoto').value='';['pHarga','pCoret','pDp'].forEach(i=>$(i).textContent='');thumbs();$('formTitle').textContent='Tambah produk'}
+function renderList(){$('list').innerHTML=P.length?P.map(p=>`<div class="row"><img src="${esc(fo(p)[0])}" alt=""><div class="i"><b>${esc(p.nama)}</b><span style="color:var(--mute)">${rp(p.harga)} · stok ${p.stok} · ${fo(p).length} foto${(p.videos||[]).length?' · '+p.videos.length+' video':''}${p.dp?' · DP '+rp(p.dp):''}</span></div><button class="btn ghost sm" data-edit="${p.id}">Ubah</button><button class="btn danger sm" data-del="${p.id}">Hapus</button></div>`).join(''):'<div class="empty">Belum ada produk.</div>'}
+const TABS=[['menunggu_verifikasi','Perlu diverifikasi'],['diterima','Diterima'],['ditolak','Ditolak']],KATS=['Cooler DIY','Custom Cooler'];
+const okats=o=>[...new Set((o.items||[]).map(x=>x.kat||(P.find(p=>p.id===x.id)||{}).kat||'Cooler DIY'))];
+function card(o){const t=o.createdAt?o.createdAt.toDate().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}):'',mix=okats(o).length>1;
+ return `<div class="oc"><div class="h"><span>${esc(o.nama)}${mix?' <span class="tag">DIY + Custom</span>':''}</span><span class="tag">${esc(o.bayar)} ${rp(o.jumlahBayar)}</span></div>
  <p><b>Pesanan:</b> ${(o.items||[]).map(x=>esc(x.nama)+' × '+x.qty).join(', ')}<br><b>Total:</b> ${rp(o.total)}</p><p><b>Alamat:</b> ${esc(o.alamat)}</p><p><b>Tanggal:</b> ${esc(o.tanggal)} · jam ${t}</p>${o.request?`<p><b>Request:</b> ${esc(o.request)}</p>`:''}<p><b>Nama di bukti transfer:</b> ${esc(o.namaPengirim)}<br>${esc(o.email)}</p>
- <img src="${o.bukti}" alt="Bukti transfer" data-ov="1">${o.status==='menunggu_verifikasi'?`<div class="oa"><button class="btn" data-st="diterima" data-oid="${o._id}">Terima ${esc(o.bayar)}</button><button class="btn danger" data-st="ditolak" data-oid="${o._id}">Tolak</button></div>`:''}</div>`}).join('')).join(''):'<div class="empty">Belum ada pesanan di sini.</div>'}
+ <img src="${o.bukti}" alt="Bukti transfer" data-ov="1">${o.status==='menunggu_verifikasi'?`<div class="oa"><button class="btn" data-st="diterima" data-oid="${o._id}">Terima ${esc(o.bayar)}</button><button class="btn danger" data-st="ditolak" data-oid="${o._id}">Tolak</button></div>`:''}</div>`}
+function renderOrders(){const L=O.filter(o=>o.status);
+ KATS.forEach((k,v)=>{const Lk=L.filter(o=>okats(o).includes(k)),n=Lk.filter(o=>o.status==='menunggu_verifikasi').length,b=$('oN'+v);b.textContent=n;b.classList.toggle('hide',!n);
+  $('tabs'+v).innerHTML=TABS.map(t=>`<button class="chip${tab[v]===t[0]?' on':''}" data-tab="${t[0]}" data-tv="${v}">${t[1]} (${Lk.filter(o=>o.status===t[0]).length})</button>`).join('');
+  const df=$('fDate'+v).value,G=new Map();
+  Lk.filter(o=>o.status===tab[v]).forEach(o=>{const d=o.createdAt?o.createdAt.toDate():new Date();if(df&&ymd(d)!==df)return;const key=ymd(d);if(!G.has(key))G.set(key,{d,l:[]});G.get(key).l.push(o)});
+  $('orders'+v).innerHTML=G.size?[...G.values()].map(g=>`<div class="dh"><span>${esc(dlong(g.d))}</span><span class="tag">${g.l.length} pesanan</span></div>`+g.l.map(card).join('')).join(''):'<div class="empty">Belum ada pesanan di sini.</div>'})}
 function renderRek(){$('rekList').innerHTML=REK.map((r,i)=>`<div class="rek"><div><b>${esc(r.bank)} · ${esc(r.no)}</b><span>a.n. ${esc(r.an)}</span></div><button class="btn danger sm" data-rrm="${i}">Hapus</button></div>`).join('')||'<div class="hint">Belum ada rekening.</div>'}
 async function enter(u){
  const a=await getDoc(doc(db,'admins',u.uid)).catch(()=>null);
  if(!a||!a.exists()){toast('Akun ini bukan admin toko');await signOut(auth);return}
  $('lg').classList.add('hide');$('dash').classList.remove('hide');$('out').classList.remove('hide');
  getDoc(doc(db,'settings','store')).then(s=>{const d=s.exists()?s.data():{};$('fTg1').value=d.tg1||'';$('fTg2').value=d.tg2||'';$('fWa1').value=d.wa1!==undefined?d.wa1:(d.wa||'');$('fWa2').value=d.wa2||'';wh('fWa1','hWa1');wh('fWa2','hWa2');$('fDef').value=d.dpMin||50000;REK=d.rek||[];renderRek();prev('fDef','pDef');if(!d.dpMin)$('pDef').textContent='= Rp50.000. Dipakai untuk produk yang DP-nya dikosongkan. Pembeli tidak bisa mengubah DP.'});
- subs.push(onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));renderList()}));
+ subs.push(onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));renderList();renderOrders()}));
  subs.push(onSnapshot(query(collection(db,'orders'),orderBy('createdAt','desc'),limit(150)),s=>{O=s.docs.map(d=>({_id:d.id,...d.data()}));renderOrders()}));
 }
 onAuthStateChanged(auth,u=>{if(u)enter(u);else{subs.forEach(f=>f());subs=[];$('lg').classList.remove('hide');$('dash').classList.add('hide');$('out').classList.add('hide')}});
@@ -155,7 +169,7 @@ document.addEventListener('click',async e=>{
  if(e.target.dataset.cover){const i=+e.target.dataset.cover;fotos.unshift(fotos.splice(i,1)[0]);thumbs();return}
  const t=e.target.closest('button');if(!t)return;
  if(t.classList.contains('tab'))go(+t.dataset.v);
- else if(t.dataset.tab){tab=t.dataset.tab;renderOrders()}
+ else if(t.dataset.tab){tab[+t.dataset.tv]=t.dataset.tab;renderOrders()}
  else if(t.dataset.rmf){fotos.splice(+t.dataset.rmf,1);thumbs()}
  else if(t.dataset.rrm){REK.splice(+t.dataset.rrm,1);renderRek()}
  else if(t.dataset.st){try{await updateDoc(doc(db,'orders',t.dataset.oid),{status:t.dataset.st});toast('Status diperbarui')}catch(x){toast('Gagal memperbarui')}}
@@ -163,7 +177,7 @@ document.addEventListener('click',async e=>{
   try{await signInWithEmailAndPassword(auth,id,$('pw').value)}catch(x){toast('ID atau password salah')}}
  else if(t.id==='out')signOut(auth);
  else if(t.id==='reset')resetForm();
- else if(t.dataset.edit){const p=P.find(x=>x.id===t.dataset.edit);edit=p.id;fotos=[...fo(p)];thumbs();$('fNama').value=p.nama;$('fHarga').value=p.harga;$('fCoret').value=p.coret||'';$('fDp').value=p.dp||'';$('fStok').value=p.stok;$('fKat').value=p.kat;$('fDesk').value=p.desk||'';['Harga','Coret','Dp'].forEach(k=>prev('f'+k,'p'+k));$('formTitle').textContent='Ubah produk';scrollTo({top:0})}
+ else if(t.dataset.edit){const p=P.find(x=>x.id===t.dataset.edit);edit=p.id;fotos=[...fo(p)];thumbs();$('fNama').value=p.nama;$('fHarga').value=p.harga;$('fCoret').value=p.coret||'';$('fDp').value=p.dp||'';$('fStok').value=p.stok;$('fKat').value=p.kat;$('fDesk').value=p.desk||'';$('fVid').value=(p.videos||[]).join('\n');vhint();['Harga','Coret','Dp'].forEach(k=>prev('f'+k,'p'+k));$('formTitle').textContent='Ubah produk';scrollTo({top:0})}
  else if(t.dataset.del){if(confirm('Hapus produk ini?')){await deleteDoc(doc(db,'products',t.dataset.del));toast('Produk dihapus')}}
  else if(t.id==='rAdd'){const b=$('rBank').value.trim(),n=$('rNo').value.trim(),a=$('rAn').value.trim();if(!b||!n||!a){toast('Lengkapi bank, nomor, dan atas nama');return}REK.push({bank:b,no:n,an:a});['rBank','rNo','rAn'].forEach(i=>$(i).value='');renderRek()}
  else if(t.id==='saveSet'){const tg1=tu($('fTg1').value),tg2=tu($('fTg2').value),wa1=nw($('fWa1').value),wa2=nw($('fWa2').value);
@@ -173,11 +187,12 @@ document.addEventListener('click',async e=>{
  else if(t.id==='save'){const n=$('fNama').value.trim(),h=pm($('fHarga').value);
   if(!n){toast('Isi nama produk dulu');return}if(!h){toast('Isi harga produk dulu');return}
   fotos=fotos.filter(Boolean);if(!fotos.length){toast('Pilih minimal 1 foto produk (tunggu foto selesai diproses)');return}
-  const d={nama:n,harga:h,coret:pm($('fCoret').value)||0,dp:pm($('fDp').value)||0,stok:+$('fStok').value||0,kat:$('fKat').value,desk:$('fDesk').value.trim(),foto:fotos[0],fotos};
+  const vl=vlines();if(vl.some(x=>!pv(x))){toast('Ada link video yang tidak dikenali');return}if(vl.length>3){toast('Maksimal 3 video');return}
+  const d={videos:vl,nama:n,harga:h,coret:pm($('fCoret').value)||0,dp:pm($('fDp').value)||0,stok:+$('fStok').value||0,kat:$('fKat').value,desk:$('fDesk').value.trim(),foto:fotos[0],fotos};
   try{if(edit)await updateDoc(doc(db,'products',edit),d);else await addDoc(collection(db,'products'),{...d,terjual:0,createdAt:serverTimestamp()});toast('Produk disimpan');resetForm()}catch(x){toast('Gagal menyimpan (kurangi jumlah foto?)')}}
 });
-document.addEventListener('input',e=>{if(e.target.id==='fWa1')wh('fWa1','hWa1');if(e.target.id==='fWa2')wh('fWa2','hWa2');const m={fHarga:'pHarga',fCoret:'pCoret',fDp:'pDp'}[e.target.id];if(m)prev(e.target.id,m)});
-$('fDate').addEventListener('input',renderOrders);
+document.addEventListener('input',e=>{if(e.target.id==='fVid')vhint();if(e.target.id==='fWa1')wh('fWa1','hWa1');if(e.target.id==='fWa2')wh('fWa2','hWa2');const m={fHarga:'pHarga',fCoret:'pCoret',fDp:'pDp'}[e.target.id];if(m)prev(e.target.id,m)});
+$('fDate0').addEventListener('input',renderOrders);$('fDate1').addEventListener('input',renderOrders);vhint();
 $('fFoto').addEventListener('change',e=>{[...e.target.files].forEach(f=>{if(fotos.length>=8){toast('Maksimal 8 foto');return}fotos.push(null);const i=fotos.length-1;shrink(f,u=>{fotos[i]=u;thumbs()})});e.target.value=''});
 document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.chip,.card,.ib,.tab');if(!t||t.disabled)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.4,d=document.createElement('span');d.className='rip';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;t.appendChild(d);setTimeout(()=>d.remove(),850)});
 

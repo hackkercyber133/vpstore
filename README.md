@@ -13,3 +13,5 @@ File: index.html (toko), admin.html (dashboard penjual), firebase-config.js, fir
 9. Buka /admin.html, masuk dengan ID dan password. Menu Pembayaran: isi DP bawaan, nomor WhatsApp, dan rekening (bank/e-wallet). Menu Produk: tambahkan produk (harga boleh ditulis 150000 atau 150rb, foto boleh banyak).
 
 Catatan: foto disimpan terkompres di Firestore (gratis, tanpa Firebase Storage). Pembeli bisa mengisi keranjang tanpa login, tapi wajib login Google untuk checkout. Pesanan baru tersimpan dan muncul di dashboard admin hanya setelah pembeli mengirim bukti DP/lunas; admin lalu menekan Terima atau Tolak. PENTING: salin ulang firestore.rules ke Firebase lalu Publish.
+
+Video produk: di menu Produk, isi kolom Video dengan link YouTube atau alamat file mp4 yang diupload ke GitHub (mis. videos/cooler.mp4). Maksimal 3 video per produk.

@@ -113,6 +113,9 @@ textarea{min-height:84px;resize:vertical;border-radius:20px}
 .ht{transform-box:fill-box;transform-origin:center;opacity:0;animation:heart 9s infinite}
 @keyframes heart{0%,44%{opacity:0;transform:translate(0,2px) scale(.3)}47%{opacity:1;transform:translate(2px,-3px) scale(1)}54%,100%{opacity:0;transform:translate(5px,-10px) scale(1.1)}}
 @media(prefers-reduced-motion:reduce){.lt,.lt i,.fc,.wk,.ht{animation:none!important}.fc{display:none}}
+.vbox{position:relative;width:100%;aspect-ratio:1;border-radius:24px;overflow:hidden;background:#000}.vbox iframe,.vbox video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.gal button{position:relative}.pl{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.28)}.pl::after{content:'';border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}.vf{position:absolute;inset:0;background:linear-gradient(135deg,#123,var(--ac))}
+.vb{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;backdrop-filter:blur(4px);z-index:1}
 </style></head>
 <body>
 <header class="top"><div class="bar"><div class="lg" id="logo" role="img" aria-label="VP STORE"><span class="lt a" style="--i:0" aria-hidden="true"><i>V</i></span><span class="lt a" style="--i:1" aria-hidden="true"><i>P</i></span><span class="lt sp" style="--i:2" aria-hidden="true"><i>&nbsp;</i></span><span class="lt b" style="--i:3" aria-hidden="true"><i>S</i></span><span class="lt b" style="--i:4" aria-hidden="true"><i>T</i></span><span class="lt b" style="--i:5" aria-hidden="true"><i>O</i></span><span class="lt b" style="--i:6" aria-hidden="true"><i>R</i></span><span class="lt b" style="--i:7" aria-hidden="true"><i>E</i></span><div class="fc" aria-hidden="true"><svg viewBox="0 0 44 44"><defs><radialGradient id="fg" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#ffb400"/></radialGradient></defs><circle cx="22" cy="22" r="20" fill="url(#fg)" stroke="#e29a00" stroke-width="1.5"/><ellipse cx="14.5" cy="18" rx="2.6" ry="3.6" fill="#3b2a12"/><ellipse class="wk" cx="29.5" cy="18" rx="2.6" ry="3.6" fill="#3b2a12"/><circle cx="9" cy="27" r="3.2" fill="#ff7a8a" opacity=".55"/><circle cx="35" cy="27" r="3.2" fill="#ff7a8a" opacity=".55"/><path d="M12 27 Q22 37.5 32 27" fill="none" stroke="#3b2a12" stroke-width="2.6" stroke-linecap="round"/><path class="ht" d="M38 6.5c-1.2-2-4-1-3.4 1.2.4 1.300 2.400 2.400 3.400 3.300 1-.9 3-2 3.400-3.300.6-2.200-2.200-3.200-3.400-1.200z" fill="#ff3d6e"/></svg></div></div>
@@ -151,6 +154,10 @@ const CATS=['Semua','Cooler DIY','Custom Cooler'];
 let C=[];try{C=JSON.parse(localStorage.getItem('vp_cart')||'[]')}catch(e){}
 const saveC=()=>{try{localStorage.setItem('vp_cart',JSON.stringify(C))}catch(e){}const n=C.reduce((a,c)=>a+c.qty,0);$('cartN').textContent=n;$('cartN').classList.toggle('z',!n)};
 const items=()=>C.map(c=>({p:P.find(x=>x.id===c.id),qty:c.qty})).filter(x=>x.p);
+const yt=u=>{const m=String(u).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/);return m&&m[1]};
+const pv=u=>{u=String(u).trim();if(!u)return null;const y=yt(u);if(y)return{t:'yt',id:y};return /\.(mp4|webm|mov|ogg|m4v)(\?.*)?$/i.test(u)?{t:'file',src:u}:null};
+const media=p=>[...fotos(p).map(s=>({t:'img',src:s})),...(p.videos||[]).map(pv).filter(Boolean)];
+const stopDet=()=>setTimeout(()=>{if(!$('mDet').classList.contains('open'))$('detBody').innerHTML=''},450);
 const fotos=p=>p.fotos&&p.fotos.length?p.fotos:[p.foto];
 const dpOf=p=>Math.min(p.harga,+p.dp>0?+p.dp:DPDEF);
 const pct=p=>p.coret>p.harga?Math.round((1-p.harga/p.coret)*100):0;
@@ -159,10 +166,12 @@ const shrink=(f,max,cb)=>{const r=new FileReader();r.onload=()=>{const im=new Im
 function render(){
  $('chips').innerHTML=CATS.map(c=>`<button class="chip${c===cat?' on':''}" data-cat="${c}">${c}</button>`).join('');
  const l=P.filter(p=>(cat==='Semua'||p.kat===cat)&&(p.nama||'').toLowerCase().includes(q.toLowerCase())),an=fresh&&P.length;
- $('grid').innerHTML=l.length?l.map((p,i)=>{const d=pct(p);return `<button class="card${an?' in':''}" style="--i:${i}" data-act="open" data-id="${p.id}"><img src="${esc(fotos(p)[0])}" alt="${esc(p.nama)}" loading="lazy"><div class="cb"><div class="nm">${esc(p.nama)}</div><div class="pr">${rp(p.harga)}${d?`<span class="disc">-${d}%</span>`:''}</div><div class="meta"><span>${p.stok>0?'Stok '+p.stok:'Habis'}</span><span>${p.terjual||0} terjual</span></div></div></button>`}).join(''):'<div class="empty">Belum ada produk di kategori ini.</div>';
+ $('grid').innerHTML=l.length?l.map((p,i)=>{const d=pct(p);return `<button class="card${an?' in':''}" style="--i:${i}" data-act="open" data-id="${p.id}"><img src="${esc(fotos(p)[0])}" alt="${esc(p.nama)}" loading="lazy">${(p.videos||[]).some(v=>pv(v))?'<span class="vb">▶ Video</span>':''}<div class="cb"><div class="nm">${esc(p.nama)}</div><div class="pr">${rp(p.harga)}${d?`<span class="disc">-${d}%</span>`:''}</div><div class="meta"><span>${p.stok>0?'Stok '+p.stok:'Habis'}</span><span>${p.terjual||0} terjual</span></div></div></button>`}).join(''):'<div class="empty">Belum ada produk di kategori ini.</div>';
  if(an)fresh=false}
-function drawDet(){const p=CUR;if(!p)return;const f=fotos(p),out=p.stok<=0;
- $('detBody').innerHTML=`<div><img class="main" data-act="lb" src="${esc(f[GI])}" alt="${esc(p.nama)}" title="Ketuk untuk memperbesar">${f.length>1?'<div class="gal">'+f.map((s,i)=>`<button data-act="th" data-i="${i}" class="${i===GI?'on':''}" aria-label="Foto ${i+1}"><img src="${esc(s)}" alt=""></button>`).join('')+'</div>':''}</div>
+function drawDet(){const p=CUR;if(!p)return;const M=media(p),out=p.stok<=0,m=M[GI]||M[0];
+ const mainH=m.t==='img'?`<img class="main" data-act="lb" src="${esc(m.src)}" alt="${esc(p.nama)}" title="Ketuk untuk memperbesar">`:`<div class="vbox">${m.t==='yt'?`<iframe src="https://www.youtube.com/embed/${m.id}?rel=0&playsinline=1" title="Video produk" allow="accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`:`<video src="${esc(m.src)}" controls playsinline preload="metadata"></video>`}</div>`;
+ const th=(x,i)=>`<button data-act="th" data-i="${i}" class="${i===GI?'on':''}" aria-label="${x.t==='img'?'Foto':'Video'} ${i+1}">${x.t==='img'?`<img src="${esc(x.src)}" alt="">`:x.t==='yt'?`<img src="https://i.ytimg.com/vi/${x.id}/hqdefault.jpg" alt="">`:'<span class="vf"></span>'}${x.t==='img'?'':'<span class="pl"></span>'}</button>`;
+ $('detBody').innerHTML=`<div>${mainH}${M.length>1?'<div class="gal">'+M.map(th).join('')+'</div>':''}</div>
  <div><h2>${esc(p.nama)}</h2><div class="big">${rp(p.harga)}${p.coret>p.harga?`<span class="old">${rp(p.coret)}</span>`:''}</div><div class="meta" style="justify-content:flex-start;gap:14px"><span>${p.terjual||0} terjual</span><span>${out?'Stok habis':'Stok '+p.stok}</span></div><div class="desc">${esc(p.desk)}</div>
  <div class="acts"><div class="two"><button class="btn ghost" data-act="add" data-id="${p.id}" ${out?'disabled':''}>+ Keranjang</button><button class="btn ghost" data-act="ask" data-id="${p.id}">Hubungi Admin</button></div><button class="btn" data-act="buy" data-id="${p.id}" ${out?'disabled':''}>${out?'Stok habis':'Pesan Sekarang'}</button></div></div>`}
 function openDet(id){CUR=P.find(x=>x.id===id);if(!CUR)return;GI=0;drawDet();open('mDet')}
@@ -194,14 +203,14 @@ async function send(){
  if(!nama)return toast('Isi nama pemesan');if(al.length<10)return toast('Isi alamat lengkap');
  if(peng.split(/\s+/).filter(Boolean).length<2)return toast('Tulis nama lengkap di bukti transfer');if(!BK)return toast('Upload bukti transfer');
  const bt=document.querySelector('[data-act=send]');bt.disabled=true;
- try{await addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama,alamat:al,tanggal:$('coTgl').value,request:$('coReq').value.trim(),items:CO.map(x=>({id:x.p.id,nama:x.p.nama,harga:x.p.harga,qty:x.qty})),total:tot,bayar,jumlahBayar:jml,namaPengirim:peng,bukti:BK,status:'menunggu_verifikasi',createdAt:serverTimestamp()});
+ try{await addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama,alamat:al,tanggal:$('coTgl').value,request:$('coReq').value.trim(),items:CO.map(x=>({id:x.p.id,nama:x.p.nama,harga:x.p.harga,qty:x.qty,kat:x.p.kat||''})),total:tot,bayar,jumlahBayar:jml,namaPengirim:peng,bukti:BK,status:'menunggu_verifikasi',createdAt:serverTimestamp()});
   if(COFROM==='cart'){C=[];saveC()}
   b.innerHTML=`<div class="ok"><b>Pesanan terkirim</b><p>Admin akan memeriksa bukti ${bayar==='Lunas'?'pembayaran':'DP'} kamu. Kalau ada yang ingin ditanyakan, chat admin.</p><a class="btn tg" target="_blank" rel="noopener" href="https://t.me/${esc(TGL[0].u)}">Chat ${esc(TGL[0].n)}</a></div>`}
  catch(e){bt.disabled=false;toast('Gagal mengirim, coba lagi')}}
 const login=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());shut('mAcc')}catch(e){toast('Login dibatalkan')}};
 document.addEventListener('click',e=>{
- const t=e.target.closest('[data-act],[data-close],[data-cat]');if(!t){if(e.target.classList.contains('modal'))e.target.classList.remove('open');return}
- if(t.hasAttribute('data-close'))return t.closest('.modal').classList.remove('open');
+ const t=e.target.closest('[data-act],[data-close],[data-cat]');if(!t){if(e.target.classList.contains('modal')){e.target.classList.remove('open');if(e.target.id==='mDet')stopDet()}return}
+ if(t.hasAttribute('data-close')){const m=t.closest('.modal');m.classList.remove('open');if(m.id==='mDet')stopDet();return}
  if(t.dataset.cat){cat=t.dataset.cat;fresh=true;return render()}
  const id=t.dataset.id;
  switch(t.dataset.act){
@@ -212,7 +221,7 @@ document.addEventListener('click',e=>{
   case 'lbp':LB.i=(LB.i-1+LB.a.length)%LB.a.length;drawLb();break;
   case 'add':addCart(id);break;
   case 'ask':{const p=P.find(x=>x.id===id),it=p?[{p,qty:1}]:items();openAsk('Halo admin, saya mau tanya'+(it.length?': '+it.map(x=>x.p.nama).join(', '):' produk.'));break}
-  case 'buy':{const p=P.find(x=>x.id===id);if(p&&needLogin()){CO=[{p,qty:1}];COFROM='direct';shut('mDet');openCo()}break}
+  case 'buy':{const p=P.find(x=>x.id===id);if(p&&needLogin()){CO=[{p,qty:1}];COFROM='direct';shut('mDet');stopDet();openCo()}break}
   case 'cart':drawCart();open('mCart');break;
   case 'acc':drawAcc();open('mAcc');break;
   case 'login':login();break;
@@ -233,7 +242,7 @@ const setLogo=()=>{const L=$('logo');L.querySelectorAll('.lt').forEach(e=>e.styl
 setLogo();addEventListener('load',setLogo);document.fonts&&document.fonts.ready.then(setLogo);
 setContacts();
 onAuthStateChanged(auth,u=>{U=u;if($('mAcc').classList.contains('open'))drawAcc()});
-onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render();if(CUR&&$('mDet').classList.contains('open')){CUR=P.find(x=>x.id===CUR.id)||CUR;drawDet()}},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
+onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render();if(CUR&&$('mDet').classList.contains('open')){const n=P.find(x=>x.id===CUR.id)||CUR;if(JSON.stringify(n)!==JSON.stringify(CUR)){CUR=n;drawDet()}}},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
 getDoc(doc(db,'settings','store')).then(s=>{if(s.exists()){const d=s.data();REK=d.rek||[];if(d.dpMin)DPDEF=d.dpMin;const tg=[d.tg1,d.tg2].map((x,i)=>tu(x)?{n:'Admin '+(i+1),u:tu(x)}:null).filter(Boolean),wa=[d.wa1!==undefined?d.wa1:d.wa,d.wa2].map((x,i)=>nw(x).length>=10?{n:'Admin '+(i+1),no:nw(x)}:null).filter(Boolean);if(tg.length)TGL=tg;WAL=wa;setContacts()}}).catch(()=>{});
 document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.chip,.card,.ib,.tab');if(!t||t.disabled)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.4,d=document.createElement('span');d.className='rip';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;t.appendChild(d);setTimeout(()=>d.remove(),850)});
 
