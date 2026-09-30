@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Dashboard VP STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#1b2733;--mute:#6b7a88;--line:#e3e9ee;--ac:#0b7fa6;--acd:#085f7c;--price:#d62839;--soft:#e6f3f8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f161c;--card:#18222b;--ink:#e8eef2;--mute:#8fa1af;--line:#27343f;--ac:#3fb4dc;--acd:#7cd0ee;--price:#ff6b7a;--soft:#12303c}}
+:root[data-theme="dark"]{--bg:#0f161c;--card:#18222b;--ink:#e8eef2;--mute:#8fa1af;--line:#27343f;--ac:#3fb4dc;--acd:#7cd0ee;--price:#ff6b7a;--soft:#12303c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:10}
+.bar{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.4px;color:var(--ac);white-space:nowrap}
+.search{flex:1;display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+.search input{flex:1;border:0;background:transparent;padding:9px 12px;min-width:0;outline:none}
+.search:focus-within{border-color:var(--ac)}
+.btn{border:0;border-radius:8px;padding:9px 14px;font-weight:600;background:var(--ac);color:#fff}
+.btn:hover{background:var(--acd)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
+.btn.danger{background:transparent;color:var(--price);border:1.5px solid var(--line)}
+.wrap{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--ac);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.banner h1{margin:0 0 4px;font-size:22px;letter-spacing:-.3px}
+.banner p{margin:0;opacity:.9}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-weight:500}
+.chip.on{background:var(--soft);border-color:var(--ac);color:var(--acd);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-align:left;padding:0;transition:border-color .15s}
+.card:hover{border-color:var(--ac)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--soft)}
+.cb{padding:10px}
+.nm{font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px}
+.pr{color:var(--price);font-weight:700;font-size:16px;margin-top:4px}
+.old{color:var(--mute);text-decoration:line-through;font-size:12px;font-weight:400;margin-left:6px}
+.meta{color:var(--mute);font-size:12px;margin-top:4px;display:flex;justify-content:space-between}
+.disc{display:inline-block;background:var(--price);color:#fff;font-size:11px;font-weight:700;border-radius:4px;padding:0 5px;margin-left:6px}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--mute)}
+.modal{position:fixed;inset:0;background:rgba(10,18,24,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.sheet{background:var(--card);border-radius:12px;width:100%;max-width:720px;max-height:92vh;overflow:auto;position:relative}
+.sheet.wide{max-width:860px}
+.x{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:0;background:var(--bg);font-size:18px;z-index:2}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px}
+.det img{width:100%;border-radius:8px;aspect-ratio:1;object-fit:cover;background:var(--soft)}
+.det h2{margin:0 0 6px;font-size:18px;padding-right:30px}
+.det .big{font-size:26px;font-weight:800;color:var(--price)}
+#adminBtn[hidden]{display:none}.ord{display:flex;flex-wrap:wrap;gap:8px}.ord a{text-decoration:none;display:inline-block}.btn.tg{background:#229ed9}.btn.tg:hover{background:#1b86b8}.ctc{margin-top:8px}.ctc a{color:var(--ac);font-weight:600;margin:0 6px}
+.desc{color:var(--mute);white-space:pre-line;margin:12px 0}
+.adm{padding:20px}
+.adm h2{margin:0 0 14px;font-size:18px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.f .full{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:600;color:var(--mute);margin-bottom:3px}
+input[type=text],input[type=number],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)}
+textarea{min-height:70px;resize:vertical}
+.up{display:flex;gap:10px;align-items:center}
+.up img{width:72px;height:72px;border-radius:8px;object-fit:cover;background:var(--soft);border:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.row img{width:48px;height:48px;border-radius:6px;object-fit:cover}
+.row .i{flex:1;min-width:0}
+.row .i b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;display:none;z-index:99;font-weight:500}
+footer{text-align:center;color:var(--mute);padding:24px 16px 32px;font-size:12px}
+@media(max-width:640px){.det{grid-template-columns:1fr}.f{grid-template-columns:1fr}.logo{font-size:16px}.banner h1{font-size:18px}.bar{gap:8px}#adminBtn span{display:none}}
+
+.ord{display:flex;flex-wrap:wrap;gap:8px}.ord a{text-decoration:none;display:inline-block}.btn.tg{background:#229ed9}.btn.tg:hover{background:#1b86b8}.ctc{margin-top:8px}.ctc a{color:var(--ac);font-weight:600;margin:0 6px}.desc{color:var(--mute);white-space:pre-line;margin:12px 0}.login{max-width:380px;margin:60px auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}.login h2{margin:0 0 14px}.login input{margin-bottom:10px}.hide{display:none!important}.ord-row{padding:8px 0;border-top:1px solid var(--line);font-size:13px}.ord-row span{color:var(--mute)}
+</style></head><body>
+<header class="top"><div class="bar"><div class="logo">VP STORE · Dashboard</div><div style="flex:1"></div><button class="btn ghost hide" id="out">Keluar</button></div></header>
+<div class="login" id="lg"><h2>Masuk penjual</h2>
+<label for="id">ID</label><input id="id" type="text" autocomplete="username"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+<button class="btn" id="go" style="width:100%">Masuk</button></div>
+<main class="wrap hide" id="dash"><div class="sheet" style="max-width:none"><div class="adm">
+<h2 id="formTitle">Tambah produk</h2>
+<div class="f"><div class="full"><label for="fNama">Nama produk</label><input id="fNama" type="text"></div>
+<div><label for="fHarga">Harga (Rp)</label><input id="fHarga" type="number" min="0" inputmode="numeric"></div>
+<div><label for="fCoret">Harga coret (opsional)</label><input id="fCoret" type="number" min="0" inputmode="numeric"></div>
+<div><label for="fStok">Stok</label><input id="fStok" type="number" min="0" inputmode="numeric"></div>
+<div><label for="fKat">Kategori</label><select id="fKat"><option>Cooler DIY</option><option>Custom Cooler</option></select></div>
+<div class="full"><label for="fDesk">Deskripsi</label><textarea id="fDesk"></textarea></div>
+<div class="full"><label>Foto produk</label><div class="up"><img id="fPrev" alt="Pratinjau"><input id="fFoto" type="file" accept="image/*"></div></div></div>
+<div style="display:flex;gap:8px;margin-bottom:18px"><button class="btn" id="save">Simpan produk</button><button class="btn ghost" id="reset">Batal edit</button></div>
+<h2 style="font-size:15px">Nomor WhatsApp toko</h2>
+<div style="display:flex;gap:8px;margin-bottom:18px"><input id="fWa" type="text" placeholder="6281234567890" inputmode="numeric"><button class="btn" id="saveWa">Simpan nomor</button></div>
+<h2 style="font-size:15px">Produk</h2><div id="list"></div>
+<h2 style="font-size:15px;margin-top:18px">Pesanan masuk terbaru</h2><div id="orders"></div>
+</div></div></main>
+<div class="toast" id="toast" role="status"></div>
+<script type="module">
+import {firebaseConfig,ADMIN_DOMAIN} from './firebase-config.js';
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {getFirestore,collection,onSnapshot,doc,getDoc,setDoc,addDoc,updateDoc,deleteDoc,serverTimestamp,query,orderBy,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rp=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2600)}
+const db=getFirestore(initializeApp(firebaseConfig)),auth=getAuth();
+let P=[],edit=null,foto='',subs=[];
+const shrink=(f,cb)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,700/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.75))};im.onerror=()=>toast('File bukan gambar');im.src=r.result};r.readAsDataURL(f)};
+function resetForm(){edit=null;foto='';['fNama','fHarga','fCoret','fStok','fDesk'].forEach(i=>$(i).value='');$('fFoto').value='';$('fPrev').removeAttribute('src');$('formTitle').textContent='Tambah produk'}
+function renderList(){$('list').innerHTML=P.length?P.map(p=>`<div class="row"><img src="${esc(p.foto)}" alt=""><div class="i"><b>${esc(p.nama)}</b><span style="color:var(--mute)">${rp(p.harga)} · stok ${p.stok} · ${esc(p.kat)}</span></div><button class="btn ghost" data-edit="${p.id}">Ubah</button><button class="btn danger" data-del="${p.id}">Hapus</button></div>`).join(''):'<div class="empty">Belum ada produk. Isi formulir di atas.</div>'}
+async function enter(u){
+ const a=await getDoc(doc(db,'admins',u.uid)).catch(()=>null);
+ if(!a||!a.exists()){toast('Akun ini bukan admin toko');await signOut(auth);return}
+ $('lg').classList.add('hide');$('dash').classList.remove('hide');$('out').classList.remove('hide');
+ getDoc(doc(db,'settings','store')).then(s=>{$('fWa').value=s.exists()?s.data().wa||'':''});
+ subs.push(onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));renderList()}));
+ subs.push(onSnapshot(query(collection(db,'orders'),orderBy('createdAt','desc'),limit(50)),s=>{$('orders').innerHTML=s.docs.length?s.docs.map(d=>{const o=d.data(),t=o.createdAt?o.createdAt.toDate().toLocaleString('id-ID'):'';return `<div class="ord-row"><b>${esc(o.produk)}</b> · ${rp(o.harga)}<br><span>${esc(o.nama)} ${esc(o.email)} · ${esc(o.via)} · ${t}</span></div>`}).join(''):'<div class="empty">Belum ada pesanan.</div>'}));
+}
+onAuthStateChanged(auth,u=>{if(u)enter(u);else{subs.forEach(f=>f());subs=[];$('lg').classList.remove('hide');$('dash').classList.add('hide');$('out').classList.add('hide')}});
+document.addEventListener('click',async e=>{
+ const t=e.target.closest('button');if(!t)return;
+ if(t.id==='go'){let id=$('id').value.trim();if(!id.includes('@'))id=id.toLowerCase()+'@'+ADMIN_DOMAIN;
+  try{await signInWithEmailAndPassword(auth,id,$('pw').value)}catch(x){toast('ID atau password salah')}}
+ else if(t.id==='out')signOut(auth);
+ else if(t.id==='reset')resetForm();
+ else if(t.dataset.edit){const p=P.find(x=>x.id===t.dataset.edit);edit=p.id;foto=p.foto;$('fNama').value=p.nama;$('fHarga').value=p.harga;$('fCoret').value=p.coret||'';$('fStok').value=p.stok;$('fKat').value=p.kat;$('fDesk').value=p.desk||'';$('fPrev').src=p.foto;$('formTitle').textContent='Ubah produk';scrollTo(0,0)}
+ else if(t.dataset.del){if(confirm('Hapus produk ini?')){await deleteDoc(doc(db,'products',t.dataset.del));toast('Produk dihapus')}}
+ else if(t.id==='saveWa'){const v=$('fWa').value.replace(/\D/g,'');if(v.length<9){toast('Nomor belum benar');return}await setDoc(doc(db,'settings','store'),{wa:v});toast('Nomor disimpan')}
+ else if(t.id==='save'){const n=$('fNama').value.trim(),h=+$('fHarga').value;
+  if(!n){toast('Isi nama produk dulu');return}if(!h){toast('Isi harga produk dulu');return}
+  if(!foto){toast('Pilih foto produk dulu');return}
+  const d={nama:n,harga:h,coret:+$('fCoret').value||0,stok:+$('fStok').value||0,kat:$('fKat').value,desk:$('fDesk').value.trim(),foto};
+  try{if(edit)await updateDoc(doc(db,'products',edit),d);else await addDoc(collection(db,'products'),{...d,terjual:0,createdAt:serverTimestamp()});toast('Produk disimpan');resetForm()}catch(x){toast('Gagal menyimpan, periksa aturan Firestore')}}
+});
+$('fFoto').addEventListener('change',e=>{const f=e.target.files[0];if(f)shrink(f,u=>{foto=u;$('fPrev').src=u})});
+</script></body></html>

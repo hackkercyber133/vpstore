@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VP STORE – Fan Cooler HP</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#1b2733;--mute:#6b7a88;--line:#e3e9ee;--ac:#0b7fa6;--acd:#085f7c;--price:#d62839;--soft:#e6f3f8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f161c;--card:#18222b;--ink:#e8eef2;--mute:#8fa1af;--line:#27343f;--ac:#3fb4dc;--acd:#7cd0ee;--price:#ff6b7a;--soft:#12303c}}
+:root[data-theme="dark"]{--bg:#0f161c;--card:#18222b;--ink:#e8eef2;--mute:#8fa1af;--line:#27343f;--ac:#3fb4dc;--acd:#7cd0ee;--price:#ff6b7a;--soft:#12303c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:10}
+.bar{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.4px;color:var(--ac);white-space:nowrap}
+.search{flex:1;display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+.search input{flex:1;border:0;background:transparent;padding:9px 12px;min-width:0;outline:none}
+.search:focus-within{border-color:var(--ac)}
+.btn{border:0;border-radius:8px;padding:9px 14px;font-weight:600;background:var(--ac);color:#fff}
+.btn:hover{background:var(--acd)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
+.btn.danger{background:transparent;color:var(--price);border:1.5px solid var(--line)}
+.wrap{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--ac);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.banner h1{margin:0 0 4px;font-size:22px;letter-spacing:-.3px}
+.banner p{margin:0;opacity:.9}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-weight:500}
+.chip.on{background:var(--soft);border-color:var(--ac);color:var(--acd);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-align:left;padding:0;transition:border-color .15s}
+.card:hover{border-color:var(--ac)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--soft)}
+.cb{padding:10px}
+.nm{font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px}
+.pr{color:var(--price);font-weight:700;font-size:16px;margin-top:4px}
+.old{color:var(--mute);text-decoration:line-through;font-size:12px;font-weight:400;margin-left:6px}
+.meta{color:var(--mute);font-size:12px;margin-top:4px;display:flex;justify-content:space-between}
+.disc{display:inline-block;background:var(--price);color:#fff;font-size:11px;font-weight:700;border-radius:4px;padding:0 5px;margin-left:6px}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--mute)}
+.modal{position:fixed;inset:0;background:rgba(10,18,24,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.sheet{background:var(--card);border-radius:12px;width:100%;max-width:720px;max-height:92vh;overflow:auto;position:relative}
+.sheet.wide{max-width:860px}
+.x{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:0;background:var(--bg);font-size:18px;z-index:2}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px}
+.det img{width:100%;border-radius:8px;aspect-ratio:1;object-fit:cover;background:var(--soft)}
+.det h2{margin:0 0 6px;font-size:18px;padding-right:30px}
+.det .big{font-size:26px;font-weight:800;color:var(--price)}
+#adminBtn[hidden]{display:none}.ord{display:flex;flex-wrap:wrap;gap:8px}.ord a{text-decoration:none;display:inline-block}.btn.tg{background:#229ed9}.btn.tg:hover{background:#1b86b8}.ctc{margin-top:8px}.ctc a{color:var(--ac);font-weight:600;margin:0 6px}
+.desc{color:var(--mute);white-space:pre-line;margin:12px 0}
+.adm{padding:20px}
+.adm h2{margin:0 0 14px;font-size:18px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.f .full{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:600;color:var(--mute);margin-bottom:3px}
+input[type=text],input[type=number],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)}
+textarea{min-height:70px;resize:vertical}
+.up{display:flex;gap:10px;align-items:center}
+.up img{width:72px;height:72px;border-radius:8px;object-fit:cover;background:var(--soft);border:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.row img{width:48px;height:48px;border-radius:6px;object-fit:cover}
+.row .i{flex:1;min-width:0}
+.row .i b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;display:none;z-index:99;font-weight:500}
+footer{text-align:center;color:var(--mute);padding:24px 16px 32px;font-size:12px}
+@media(max-width:640px){.det{grid-template-columns:1fr}.f{grid-template-columns:1fr}.logo{font-size:16px}.banner h1{font-size:18px}.bar{gap:8px}#adminBtn span{display:none}}
+
+.ord{display:flex;flex-wrap:wrap;gap:8px}.ord a{text-decoration:none;display:inline-block}.btn.tg{background:#229ed9}.btn.tg:hover{background:#1b86b8}.ctc{margin-top:8px}.ctc a{color:var(--ac);font-weight:600;margin:0 6px}.desc{color:var(--mute);white-space:pre-line;margin:12px 0}.login{max-width:380px;margin:60px auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}.login h2{margin:0 0 14px}.login input{margin-bottom:10px}.hide{display:none!important}.ord-row{padding:8px 0;border-top:1px solid var(--line);font-size:13px}.ord-row span{color:var(--mute)}
+</style></head><body>
+<header class="top"><div class="bar"><div class="logo">VP STORE</div>
+<div class="search"><input id="q" type="text" placeholder="Cari fan cooler HP" aria-label="Cari produk"></div>
+<button class="btn ghost" id="loginBtn">Masuk dengan Google</button></div></header>
+<main class="wrap">
+<section class="banner"><h1>Fan cooler HP, main game tanpa panas</h1><p>Masuk dengan Google, lalu pesan lewat WhatsApp atau Telegram admin.</p></section>
+<div class="chips" id="chips"></div><div class="grid" id="grid"><div class="empty">Memuat produk...</div></div></main>
+<footer>VP STORE – Toko aksesori HP<div class="ctc">Hubungi admin: <a href="https://t.me/FYZ737" target="_blank" rel="noopener">@FYZ737</a><a href="https://t.me/bujanginm" target="_blank" rel="noopener">@bujanginm</a></div></footer>
+<div class="modal" id="mDet"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="det" id="detBody"></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="module">
+import {firebaseConfig,TG} from './firebase-config.js';
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {getFirestore,collection,onSnapshot,doc,getDoc,addDoc,serverTimestamp,query,orderBy} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rp=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2600)}
+const db=getFirestore(initializeApp(firebaseConfig)),auth=getAuth();
+let P=[],U=null,WA='',cat='Semua',q='';const CATS=['Semua','Cooler DIY','Custom Cooler'];
+const pct=p=>p.coret>p.harga?Math.round((1-p.harga/p.coret)*100):0;
+function render(){
+ $('chips').innerHTML=CATS.map(c=>`<button class="chip${c===cat?' on':''}" data-cat="${c}">${c}</button>`).join('');
+ const l=P.filter(p=>(cat==='Semua'||p.kat===cat)&&(p.nama||'').toLowerCase().includes(q.toLowerCase()));
+ $('grid').innerHTML=l.length?l.map(p=>{const d=pct(p);return `<button class="card" data-id="${p.id}"><img src="${esc(p.foto)}" alt="${esc(p.nama)}" loading="lazy"><div class="cb"><div class="nm">${esc(p.nama)}</div><div class="pr">${rp(p.harga)}${d?`<span class="disc">-${d}%</span>`:''}</div><div class="meta"><span>${p.stok>0?'Stok '+p.stok:'Habis'}</span><span>${p.terjual||0} terjual</span></div></div></button>`}).join(''):'<div class="empty">Belum ada produk di kategori ini.</div>';
+}
+function openDet(id){const p=P.find(x=>x.id===id);if(!p)return;
+ const msg=encodeURIComponent(`Halo, saya mau pesan: ${p.nama} (${rp(p.harga)}). Apakah masih ready?`);
+ let a;
+ if(p.stok<=0)a='<button class="btn" disabled style="opacity:.5">Stok habis</button>';
+ else if(!U)a='<button class="btn" id="needLogin">Masuk dengan Google untuk memesan</button>';
+ else a='<div class="ord">'+(WA?`<a class="btn" data-ord="${p.id}" target="_blank" rel="noopener" href="https://wa.me/${esc(WA)}?text=${msg}">Pesan lewat WhatsApp</a>`:'')+TG.map(t=>`<a class="btn tg" data-ord="${p.id}" target="_blank" rel="noopener" href="https://t.me/${t[1]}">Telegram ${t[0]}</a>`).join('')+'</div>';
+ $('detBody').innerHTML=`<img src="${esc(p.foto)}" alt="${esc(p.nama)}"><div><h2>${esc(p.nama)}</h2><div class="big">${rp(p.harga)}${p.coret>p.harga?`<span class="old">${rp(p.coret)}</span>`:''}</div><div class="meta" style="justify-content:flex-start;gap:14px"><span>${p.terjual||0} terjual</span><span>${p.stok>0?'Stok '+p.stok:'Stok habis'}</span></div><div class="desc">${esc(p.desk)}</div>${a}</div>`;
+ $('mDet').classList.add('open');}
+const login=async()=>{try{U?await signOut(auth):await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){toast('Login dibatalkan')}};
+document.addEventListener('click',e=>{
+ const a=e.target.closest('[data-ord]');
+ if(a&&U){const p=P.find(x=>x.id===a.dataset.ord);if(p)addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama:U.displayName||'',productId:p.id,produk:p.nama,harga:p.harga,via:a.textContent,createdAt:serverTimestamp()}).catch(()=>{});return}
+ const t=e.target.closest('button,[data-close]');if(!t)return;
+ if(t.hasAttribute('data-close'))t.closest('.modal').classList.remove('open');
+ else if(t.dataset.cat){cat=t.dataset.cat;render()}
+ else if(t.classList.contains('card'))openDet(t.dataset.id);
+ else if(t.id==='needLogin'||t.id==='loginBtn')login();});
+$('mDet').addEventListener('click',e=>{if(e.target.id==='mDet')e.target.classList.remove('open')});
+$('q').addEventListener('input',e=>{q=e.target.value;render()});
+onAuthStateChanged(auth,u=>{U=u;$('loginBtn').textContent=u?'Keluar ('+(u.displayName||u.email||'akun').split(' ')[0]+')':'Masuk dengan Google';if($('mDet').classList.contains('open')){$('mDet').classList.remove('open')}});
+onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
+getDoc(doc(db,'settings','store')).then(s=>{if(s.exists())WA=s.data().wa||''}).catch(()=>{});
+render();
+</script></body></html>
