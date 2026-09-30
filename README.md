@@ -10,6 +10,6 @@ File: index.html (toko), admin.html (dashboard penjual), firebase-config.js, fir
 6. Firestore > Start collection `admins` > Document ID = UID tadi > isi satu field bebas (mis. role = admin). Hanya UID di sini yang boleh mengubah produk.
 7. Pasang ke hosting gratis: Firebase Hosting (`firebase deploy`), Netlify (drag-drop folder), atau Cloudflare Pages.
 8. Authentication > Settings > Authorized domains: tambahkan domain hosting kamu (syarat login Google).
-9. Buka /admin.html, masuk dengan ID dan password. Di bagian Pengaturan toko isi nomor WhatsApp, DP minimal, dan rekening (bank/e-wallet), lalu tambahkan produk (harga boleh ditulis 150000 atau 150rb, foto boleh banyak).
+9. Buka /admin.html, masuk dengan ID dan password. Menu Pembayaran: isi DP bawaan, nomor WhatsApp, dan rekening (bank/e-wallet). Menu Produk: tambahkan produk (harga boleh ditulis 150000 atau 150rb, foto boleh banyak).
 
 Catatan: foto disimpan terkompres di Firestore (gratis, tanpa Firebase Storage). Pembeli bisa mengisi keranjang tanpa login, tapi wajib login Google untuk checkout. Pesanan baru tersimpan dan muncul di dashboard admin hanya setelah pembeli mengirim bukti DP/lunas; admin lalu menekan Terima atau Tolak. PENTING: salin ulang firestore.rules ke Firebase lalu Publish.
