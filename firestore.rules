@@ -7,8 +7,11 @@ service cloud.firestore {
     }
     match /products/{id} { allow read: if true; allow write: if isAdmin(); }
     match /settings/{id} { allow read: if true; allow write: if isAdmin(); }
+    // Pesanan hanya dibuat pembeli (login) setelah kirim bukti DP; hanya admin yang bisa membaca/mengubah.
     match /orders/{id} {
-      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'menunggu_verifikasi';
       allow read, update, delete: if isAdmin();
     }
     match /admins/{id} { allow read: if request.auth != null && request.auth.uid == id; allow write: if false; }

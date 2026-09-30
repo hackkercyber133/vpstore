@@ -71,15 +71,48 @@ footer{text-align:center;color:var(--mute);padding:24px 16px 32px;font-size:12px
 @media(max-width:640px){.det{grid-template-columns:1fr}.f{grid-template-columns:1fr}.logo{font-size:16px}.banner h1{font-size:18px}.bar{gap:8px}#adminBtn span{display:none}}
 
 .ord{display:flex;flex-wrap:wrap;gap:8px}.ord a{text-decoration:none;display:inline-block}.btn.tg{background:#229ed9}.btn.tg:hover{background:#1b86b8}.ctc{margin-top:8px}.ctc a{color:var(--ac);font-weight:600;margin:0 6px}.desc{color:var(--mute);white-space:pre-line;margin:12px 0}.login{max-width:380px;margin:60px auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}.login h2{margin:0 0 14px}.login input{margin-bottom:10px}.hide{display:none!important}.ord-row{padding:8px 0;border-top:1px solid var(--line);font-size:13px}.ord-row span{color:var(--mute)}
+
+.bar{flex-wrap:wrap}.banner p+p{margin-top:6px}.banner .note{background:rgba(255,255,255,.16);border-radius:8px;padding:8px 12px;margin-top:10px}
+.btn.light{background:#fff;color:var(--acd);display:inline-block;text-decoration:none;margin-top:12px}.btn.sm{padding:5px 10px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}.btn.full{width:100%}
+.cartN{background:var(--price);color:#fff;border-radius:999px;font-size:11px;padding:0 6px;margin-left:4px}
+.gal{display:flex;gap:6px;margin-top:8px;overflow-x:auto}.gal button{flex:none;width:54px;height:54px;border:2px solid var(--line);border-radius:6px;padding:0;overflow:hidden;background:var(--soft)}
+.gal button.on{border-color:var(--ac)}.gal img{width:100%;height:100%;object-fit:cover;border-radius:0;aspect-ratio:auto}
+.det .main{cursor:zoom-in}
+.acts{display:grid;gap:8px;margin-top:12px}.acts .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pad{padding:20px}.pad h2{margin:0 0 12px;font-size:18px;padding-right:34px}.pad h3{margin:16px 0 8px;font-size:14px}
+.ci{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.ci img{width:56px;height:56px;border-radius:6px;object-fit:cover}
+.ci .i{flex:1;min-width:0}.qty{display:flex;align-items:center;gap:8px}.qty button{width:28px;height:28px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg)}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:16px;padding:12px 0;border-top:1px solid var(--line)}
+.lb{background:rgba(0,0,0,.92);z-index:80}.lb img{max-width:100%;max-height:82vh;object-fit:contain}.lb .x{background:#fff;color:#000}
+.lbn{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.85);font-size:24px}.lbn.prev{left:10px}.lbn.next{right:10px}
+#lbCnt{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff}
+.rek{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.rek b{display:block}.rek span{color:var(--mute);font-size:12px}
+.info{background:var(--soft);border-radius:8px;padding:10px 12px;font-size:13px;margin:8px 0}
+.radios{display:flex;gap:16px;margin:6px 0}.radios label{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--ink);font-weight:500;margin:0}
+input[type=text],input[type=number],textarea{margin-bottom:8px}.ro{opacity:.75}
+.bk img{max-width:160px;border-radius:8px;margin-top:6px;display:block}
+.ok{text-align:center;padding:24px 8px}.ok b{font-size:18px;display:block;margin-bottom:8px}
+@media(max-width:640px){.search{order:5;flex-basis:100%}.bar{gap:8px}.banner{padding:18px}}
 </style></head><body>
-<header class="top"><div class="bar"><div class="logo">VP STORE</div>
-<div class="search"><input id="q" type="text" placeholder="Cari fan cooler HP" aria-label="Cari produk"></div>
-<button class="btn ghost" id="loginBtn">Masuk dengan Google</button></div></header>
+<header class="top"><div class="bar"><div class="logo">VP STORE</div><div style="flex:1"></div>
+<button class="btn ghost" data-act="cart">Keranjang<span class="cartN" id="cartN">0</span></button>
+<button class="btn ghost" id="loginBtn">Masuk dengan Google</button>
+<div class="search"><input id="q" type="text" placeholder="Cari fan cooler HP" aria-label="Cari produk"></div></div></header>
 <main class="wrap">
-<section class="banner"><h1>Fan cooler HP, main game tanpa panas</h1><p>Masuk dengan Google, lalu pesan lewat WhatsApp atau Telegram admin.</p></section>
+<section class="banner"><h1>Selamat Datang</h1>
+<p>Masuk dengan Google, lalu pesan lewat WhatsApp atau Telegram admin.</p>
+<p>Jika ada yang ingin ditanyakan bisa langsung chat admin 1, jika ingin checkout produk silakan checkout di sini.</p>
+<p class="note">DP minimal <b id="dpTxt">Rp50.000</b> atau langsung lunas sesuai harga yang tertera, atau konfirmasi dengan admin. Pembayaran bisa ke semua bank dan e-wallet, nomor rekening tampil saat checkout.</p>
+<a class="btn light" id="bnAdmin" target="_blank" rel="noopener">Chat Admin 1</a></section>
 <div class="chips" id="chips"></div><div class="grid" id="grid"><div class="empty">Memuat produk...</div></div></main>
 <footer>VP STORE – Toko aksesori HP<div class="ctc">Hubungi admin: <a href="https://t.me/FYZ737" target="_blank" rel="noopener">@FYZ737</a><a href="https://t.me/bujanginm" target="_blank" rel="noopener">@bujanginm</a></div></footer>
 <div class="modal" id="mDet"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="det" id="detBody"></div></div></div>
+<div class="modal" id="mCart"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="pad" id="cartBody"></div></div></div>
+<div class="modal" id="mAsk"><div class="sheet" style="max-width:420px"><button class="x" data-close aria-label="Tutup">×</button><div class="pad" id="askBody"></div></div></div>
+<div class="modal" id="mCo"><div class="sheet"><button class="x" data-close aria-label="Tutup">×</button><div class="pad" id="coBody"></div></div></div>
+<div class="modal lb" id="mLb"><button class="x" data-close aria-label="Tutup">×</button><button class="lbn prev" data-act="lbp" aria-label="Sebelumnya">‹</button><img id="lbImg" alt=""><button class="lbn next" data-act="lbn" aria-label="Berikutnya">›</button><div id="lbCnt"></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script type="module">
 import {firebaseConfig,TG} from './firebase-config.js';
@@ -88,37 +121,90 @@ import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} f
 import {getFirestore,collection,onSnapshot,doc,getDoc,addDoc,serverTimestamp,query,orderBy} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const rp=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
-function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2600)}
+const rp=n=>'Rp'+Math.round(Number(n)||0).toLocaleString('id-ID');
+const pm=s=>{s=String(s).toLowerCase().trim();const k=/(rb|ribu|k)\s*$/.test(s),n=parseFloat(s.replace(/(rb|ribu|k)\s*$/,'').replace(/\./g,'').replace(',','.'))||0;return Math.round(k?n*1000:n)};
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2800)}
 const db=getFirestore(initializeApp(firebaseConfig)),auth=getAuth();
-let P=[],U=null,WA='',cat='Semua',q='';const CATS=['Semua','Cooler DIY','Custom Cooler'];
+let P=[],U=null,WA='',REK=[],DPMIN=50000,cat='Semua',q='',CUR=null,GI=0,LB={a:[],i:0},CO=[],COFROM='cart',BK='';
+const CATS=['Semua','Cooler DIY','Custom Cooler'];
+let C=[];try{C=JSON.parse(localStorage.getItem('vp_cart')||'[]')}catch(e){}
+const saveC=()=>{try{localStorage.setItem('vp_cart',JSON.stringify(C))}catch(e){}$('cartN').textContent=C.reduce((a,c)=>a+c.qty,0)};
+const items=()=>C.map(c=>({p:P.find(x=>x.id===c.id),qty:c.qty})).filter(x=>x.p);
+const fotos=p=>p.fotos&&p.fotos.length?p.fotos:[p.foto];
 const pct=p=>p.coret>p.harga?Math.round((1-p.harga/p.coret)*100):0;
+const open=id=>$(id).classList.add('open'),shut=id=>$(id).classList.remove('open');
+const shrink=(f,max,cb)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.75))};im.onerror=()=>toast('File bukan gambar');im.src=r.result};r.readAsDataURL(f)};
 function render(){
  $('chips').innerHTML=CATS.map(c=>`<button class="chip${c===cat?' on':''}" data-cat="${c}">${c}</button>`).join('');
  const l=P.filter(p=>(cat==='Semua'||p.kat===cat)&&(p.nama||'').toLowerCase().includes(q.toLowerCase()));
- $('grid').innerHTML=l.length?l.map(p=>{const d=pct(p);return `<button class="card" data-id="${p.id}"><img src="${esc(p.foto)}" alt="${esc(p.nama)}" loading="lazy"><div class="cb"><div class="nm">${esc(p.nama)}</div><div class="pr">${rp(p.harga)}${d?`<span class="disc">-${d}%</span>`:''}</div><div class="meta"><span>${p.stok>0?'Stok '+p.stok:'Habis'}</span><span>${p.terjual||0} terjual</span></div></div></button>`}).join(''):'<div class="empty">Belum ada produk di kategori ini.</div>';
+ $('grid').innerHTML=l.length?l.map(p=>{const d=pct(p);return `<button class="card" data-act="open" data-id="${p.id}"><img src="${esc(fotos(p)[0])}" alt="${esc(p.nama)}" loading="lazy"><div class="cb"><div class="nm">${esc(p.nama)}</div><div class="pr">${rp(p.harga)}${d?`<span class="disc">-${d}%</span>`:''}</div><div class="meta"><span>${p.stok>0?'Stok '+p.stok:'Habis'}</span><span>${p.terjual||0} terjual</span></div></div></button>`}).join(''):'<div class="empty">Belum ada produk di kategori ini.</div>';
 }
-function openDet(id){const p=P.find(x=>x.id===id);if(!p)return;
- const msg=encodeURIComponent(`Halo, saya mau pesan: ${p.nama} (${rp(p.harga)}). Apakah masih ready?`);
- let a;
- if(p.stok<=0)a='<button class="btn" disabled style="opacity:.5">Stok habis</button>';
- else if(!U)a='<button class="btn" id="needLogin">Masuk dengan Google untuk memesan</button>';
- else a='<div class="ord">'+(WA?`<a class="btn" data-ord="${p.id}" target="_blank" rel="noopener" href="https://wa.me/${esc(WA)}?text=${msg}">Pesan lewat WhatsApp</a>`:'')+TG.map(t=>`<a class="btn tg" data-ord="${p.id}" target="_blank" rel="noopener" href="https://t.me/${t[1]}">Telegram ${t[0]}</a>`).join('')+'</div>';
- $('detBody').innerHTML=`<img src="${esc(p.foto)}" alt="${esc(p.nama)}"><div><h2>${esc(p.nama)}</h2><div class="big">${rp(p.harga)}${p.coret>p.harga?`<span class="old">${rp(p.coret)}</span>`:''}</div><div class="meta" style="justify-content:flex-start;gap:14px"><span>${p.terjual||0} terjual</span><span>${p.stok>0?'Stok '+p.stok:'Stok habis'}</span></div><div class="desc">${esc(p.desk)}</div>${a}</div>`;
- $('mDet').classList.add('open');}
+function drawDet(){const p=CUR;if(!p)return;const f=fotos(p),out=p.stok<=0;
+ $('detBody').innerHTML=`<div><img class="main" data-act="lb" src="${esc(f[GI])}" alt="${esc(p.nama)}" title="Ketuk untuk memperbesar">${f.length>1?'<div class="gal">'+f.map((s,i)=>`<button data-act="th" data-i="${i}" class="${i===GI?'on':''}" aria-label="Foto ${i+1}"><img src="${esc(s)}" alt=""></button>`).join('')+'</div>':''}</div>
+ <div><h2>${esc(p.nama)}</h2><div class="big">${rp(p.harga)}${p.coret>p.harga?`<span class="old">${rp(p.coret)}</span>`:''}</div><div class="meta" style="justify-content:flex-start;gap:14px"><span>${p.terjual||0} terjual</span><span>${out?'Stok habis':'Stok '+p.stok}</span></div><div class="desc">${esc(p.desk)}</div>
+ <div class="acts"><div class="two"><button class="btn ghost" data-act="add" data-id="${p.id}" ${out?'disabled':''}>+ Keranjang</button><button class="btn ghost" data-act="ask" data-id="${p.id}">Hubungi Admin</button></div><button class="btn" data-act="buy" data-id="${p.id}" ${out?'disabled':''}>${out?'Stok habis':'Pesan Sekarang'}</button></div></div>`}
+function openDet(id){CUR=P.find(x=>x.id===id);if(!CUR)return;GI=0;drawDet();open('mDet')}
+function drawLb(){$('lbImg').src=LB.a[LB.i];$('lbCnt').textContent=LB.a.length>1?(LB.i+1)+' / '+LB.a.length:'';document.querySelectorAll('.lbn').forEach(b=>b.style.display=LB.a.length>1?'':'none')}
+function addCart(id){const p=P.find(x=>x.id===id);if(!p||p.stok<=0)return toast('Stok habis');const c=C.find(x=>x.id===id);if(c){if(c.qty>=p.stok)return toast('Maksimal sesuai stok');c.qty++}else C.push({id,qty:1});saveC();toast('Masuk keranjang')}
+function drawCart(){const it=items(),tot=it.reduce((a,x)=>a+x.p.harga*x.qty,0);
+ $('cartBody').innerHTML='<h2>Keranjang</h2>'+(it.length?it.map(x=>`<div class="ci"><img src="${esc(fotos(x.p)[0])}" alt=""><div class="i"><b>${esc(x.p.nama)}</b><div class="pr" style="margin:0">${rp(x.p.harga)}</div></div><div class="qty"><button data-act="qm" data-id="${x.p.id}" aria-label="Kurangi">−</button><b>${x.qty}</b><button data-act="qp" data-id="${x.p.id}" aria-label="Tambah">+</button></div></div>`).join('')+`<div class="tot"><span>Total</span><span>${rp(tot)}</span></div><div class="acts"><button class="btn ghost" data-act="ask">Hubungi Admin (tanya dulu)</button><button class="btn" data-act="cobuy">Pesan Sekarang</button></div>`:'<div class="empty">Keranjang masih kosong.</div>')}
+function openAsk(msg){const m=encodeURIComponent(msg||'Halo admin, saya mau tanya produk.');
+ $('askBody').innerHTML='<h2>Hubungi Admin</h2><div class="acts">'+TG.map(t=>`<a class="btn tg" style="text-align:center;text-decoration:none" target="_blank" rel="noopener" href="https://t.me/${t[1]}">Telegram ${esc(t[0])}</a>`).join('')+(WA?`<a class="btn" style="text-align:center;text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(WA)}?text=${m}">WhatsApp</a>`:'')+'</div>';open('mAsk')}
+function needLogin(){if(U)return true;toast('Masuk dengan Google dulu untuk memesan');login();return false}
+function openCo(){const tot=CO.reduce((a,x)=>a+x.p.harga*x.qty,0);BK='';
+ const d=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ $('coBody').innerHTML=`<h2>Checkout</h2>${CO.map(x=>`<div class="ord-row"><b>${esc(x.p.nama)}</b> × ${x.qty}<br><span>${rp(x.p.harga*x.qty)}</span></div>`).join('')}<div class="tot"><span>Total</span><span>${rp(tot)}</span></div>
+ <h3>Data pemesan</h3><label for="coNama">Nama pemesan</label><input id="coNama" type="text" value="${esc(U.displayName||'')}"><label for="coAl">Alamat lengkap</label><textarea id="coAl" placeholder="Jalan, RT/RW, kelurahan, kecamatan, kota, kode pos, no. HP"></textarea>
+ <label>Tanggal sekarang</label><input type="text" class="ro" id="coTgl" value="${esc(d)}" readonly><label for="coReq">Request (opsional)</label><textarea id="coReq" placeholder="Warna, catatan, dll"></textarea>
+ <h3>Pembayaran</h3><div class="radios"><label><input type="radio" name="pay" value="DP" checked> DP (min ${rp(DPMIN)})</label><label><input type="radio" name="pay" value="Lunas"> Langsung lunas</label></div>
+ <div id="dpBox"><label for="coAmt">Jumlah DP (Rp)</label><input id="coAmt" type="text" inputmode="numeric" value="${DPMIN}"></div>
+ <div class="info">Transfer ke salah satu rekening di bawah. Tulis <b>nama lengkap</b> pemesan di bukti transfer. Pesanan baru masuk ke admin setelah bukti DP dikirim.</div>
+ ${REK.length?REK.map(r=>`<div class="rek"><div><b>${esc(r.bank)} · ${esc(r.no)}</b><span>a.n. ${esc(r.an)}</span></div><button class="btn ghost sm" data-act="copy" data-no="${esc(r.no)}">Salin</button></div>`).join(''):'<div class="info">Nomor rekening belum diatur, silakan hubungi admin.</div>'}
+ <h3>Bukti transfer</h3><label for="coPengirim">Nama lengkap di bukti transfer</label><input id="coPengirim" type="text"><label for="coBk">Foto bukti transfer</label><input id="coBk" type="file" accept="image/*"><div class="bk" id="bkPrev"></div>
+ <button class="btn full" style="margin-top:14px" data-act="send">Kirim Pesanan (sudah bayar)</button>`;
+ open('mCo')}
+async function send(){
+ const nama=$('coNama').value.trim(),al=$('coAl').value.trim(),peng=$('coPengirim').value.trim(),tot=CO.reduce((a,x)=>a+x.p.harga*x.qty,0),bayar=document.querySelector('input[name=pay]:checked').value,jml=bayar==='Lunas'?tot:pm($('coAmt').value);
+ if(!nama)return toast('Isi nama pemesan');if(al.length<10)return toast('Isi alamat lengkap');
+ if(bayar==='DP'&&jml<Math.min(DPMIN,tot))return toast('DP minimal '+rp(DPMIN));if(jml>tot)return toast('Jumlah melebihi total');
+ if(peng.split(/\s+/).filter(Boolean).length<2)return toast('Tulis nama lengkap di bukti transfer');if(!BK)return toast('Upload bukti transfer');
+ const b=document.querySelector('[data-act=send]');b.disabled=true;
+ try{await addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama,alamat:al,tanggal:$('coTgl').value,request:$('coReq').value.trim(),items:CO.map(x=>({id:x.p.id,nama:x.p.nama,harga:x.p.harga,qty:x.qty})),total:tot,bayar,jumlahBayar:jml,namaPengirim:peng,bukti:BK,status:'menunggu_verifikasi',createdAt:serverTimestamp()});
+  if(COFROM==='cart'){C=[];saveC()}
+  $('coBody').innerHTML=`<div class="ok"><b>Pesanan terkirim</b><p>Admin akan memeriksa bukti ${bayar==='Lunas'?'pembayaran':'DP'} kamu. Kalau ada yang ingin ditanyakan, chat admin.</p><a class="btn tg" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener" href="https://t.me/${TG[0][1]}">Chat ${esc(TG[0][0])}</a></div>`}
+ catch(e){b.disabled=false;toast('Gagal mengirim, coba lagi')}}
 const login=async()=>{try{U?await signOut(auth):await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){toast('Login dibatalkan')}};
 document.addEventListener('click',e=>{
- const a=e.target.closest('[data-ord]');
- if(a&&U){const p=P.find(x=>x.id===a.dataset.ord);if(p)addDoc(collection(db,'orders'),{uid:U.uid,email:U.email||'',nama:U.displayName||'',productId:p.id,produk:p.nama,harga:p.harga,via:a.textContent,createdAt:serverTimestamp()}).catch(()=>{});return}
- const t=e.target.closest('button,[data-close]');if(!t)return;
- if(t.hasAttribute('data-close'))t.closest('.modal').classList.remove('open');
- else if(t.dataset.cat){cat=t.dataset.cat;render()}
- else if(t.classList.contains('card'))openDet(t.dataset.id);
- else if(t.id==='needLogin'||t.id==='loginBtn')login();});
-$('mDet').addEventListener('click',e=>{if(e.target.id==='mDet')e.target.classList.remove('open')});
+ const t=e.target.closest('[data-act],[data-close],[data-cat],#loginBtn');if(!t){if(e.target.classList.contains('modal'))e.target.classList.remove('open');return}
+ if(t.hasAttribute('data-close'))return t.closest('.modal').classList.remove('open');
+ if(t.dataset.cat){cat=t.dataset.cat;return render()}
+ if(t.id==='loginBtn')return login();
+ const id=t.dataset.id;
+ switch(t.dataset.act){
+  case 'open':openDet(id);break;
+  case 'th':GI=+t.dataset.i;drawDet();break;
+  case 'lb':LB={a:fotos(CUR),i:GI};drawLb();open('mLb');break;
+  case 'lbn':LB.i=(LB.i+1)%LB.a.length;drawLb();break;
+  case 'lbp':LB.i=(LB.i-1+LB.a.length)%LB.a.length;drawLb();break;
+  case 'add':addCart(id);break;
+  case 'ask':{const p=P.find(x=>x.id===id),it=p?[{p,qty:1}]:items();openAsk('Halo admin, saya mau tanya'+(it.length?': '+it.map(x=>x.p.nama).join(', '):' produk.'));break}
+  case 'buy':{const p=P.find(x=>x.id===id);if(p&&needLogin()){CO=[{p,qty:1}];COFROM='direct';shut('mDet');openCo()}break}
+  case 'cart':drawCart();open('mCart');break;
+  case 'qp':addCart(id);drawCart();break;
+  case 'qm':{const c=C.find(x=>x.id===id);if(c){c.qty--;if(c.qty<1)C=C.filter(x=>x!==c)}saveC();drawCart();break}
+  case 'cobuy':if(items().length&&needLogin()){CO=items();COFROM='cart';shut('mCart');openCo()}break;
+  case 'copy':navigator.clipboard&&navigator.clipboard.writeText(t.dataset.no).then(()=>toast('Nomor disalin'));break;
+  case 'send':send();break;
+ }});
+document.addEventListener('change',e=>{
+ if(e.target.name==='pay')$('dpBox').style.display=e.target.value==='DP'?'':'none';
+ if(e.target.id==='coBk'){const f=e.target.files[0];if(f)shrink(f,900,u=>{BK=u;$('bkPrev').innerHTML=`<img src="${u}" alt="Bukti transfer">`})}});
+document.addEventListener('keydown',e=>{if(!$('mLb').classList.contains('open'))return;if(e.key==='ArrowRight')$('mLb').querySelector('.next').click();if(e.key==='ArrowLeft')$('mLb').querySelector('.prev').click();if(e.key==='Escape')shut('mLb')});
+let sx=0;$('mLb').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('mLb').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50&&LB.a.length>1)$('mLb').querySelector(d<0?'.next':'.prev').click()});
 $('q').addEventListener('input',e=>{q=e.target.value;render()});
-onAuthStateChanged(auth,u=>{U=u;$('loginBtn').textContent=u?'Keluar ('+(u.displayName||u.email||'akun').split(' ')[0]+')':'Masuk dengan Google';if($('mDet').classList.contains('open')){$('mDet').classList.remove('open')}});
-onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
-getDoc(doc(db,'settings','store')).then(s=>{if(s.exists())WA=s.data().wa||''}).catch(()=>{});
-render();
+$('bnAdmin').href='https://t.me/'+TG[0][1];
+onAuthStateChanged(auth,u=>{U=u;$('loginBtn').textContent=u?'Keluar ('+(u.displayName||u.email||'akun').split(/[ @]/)[0]+')':'Masuk dengan Google'});
+onSnapshot(query(collection(db,'products'),orderBy('createdAt','desc')),s=>{P=s.docs.map(d=>({id:d.id,...d.data()}));render();if(CUR&&$('mDet').classList.contains('open')){CUR=P.find(x=>x.id===CUR.id)||CUR;drawDet()}},()=>{$('grid').innerHTML='<div class="empty">Produk gagal dimuat. Periksa konfigurasi Firebase.</div>'});
+getDoc(doc(db,'settings','store')).then(s=>{if(s.exists()){const d=s.data();WA=d.wa||'';REK=d.rek||[];if(d.dpMin)DPMIN=d.dpMin;$('dpTxt').textContent=rp(DPMIN)}}).catch(()=>{});
+saveC();render();
 </script></body></html>
